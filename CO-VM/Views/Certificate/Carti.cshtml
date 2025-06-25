@@ -1,20 +1,147 @@
 ﻿@model List<CO_VM.Models.Booking>
 
-<br />
-<br />
-<br />
-<br />
-<br />
-
-@if (Model != null)
-{
-    foreach (var booking in Model)
-    {
-        <div>
-            Booking ID: @booking.BookId
-            <a asp-action="DownloadCertificate" asp-controller="Certificate" asp-route-bookId="@booking.BookId" class="btn btn-primary">
-                Download Certificate
-            </a>
-        </div>
-    }
+@{
+    Layout = null;
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Download Certificates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, rgba(9, 87, 149, 0.6), rgba(9, 87, 149, 0.6));
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .split-screen {
+            display: flex;
+            height: 100vh;
+            padding-top: 60px;
+        }
+
+        .form-half {
+            width: 50%;
+            background: #f9fbff;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .info-half {
+            width: 50%;
+            background: linear-gradient(135deg, rgba(9, 87, 149, 0.6), rgba(9, 87, 149, 0.6));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+        }
+
+            .info-half h2 {
+                font-weight: 700;
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+
+            .info-half p {
+                font-size: 18px;
+                line-height: 1.6;
+            }
+
+        .card-container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .booking-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.25rem;
+        }
+
+        .booking-id {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            border: none;
+            color: white;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+            .btn-download:hover {
+                background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+            }
+
+        media (max-width: 991px) {
+            .split-screen
+
+        {
+            flex-direction: column;
+        }
+
+        .form-half, .info-half {
+            width: 100%;
+            height: auto;
+        }
+
+        .info-half {
+            padding: 40px 24px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="split-screen">
+        <!-- Left Info Panel -->
+        <div class="info-half">
+            <h2>Vaccination Certificates</h2>
+            <p>
+                Download certificates for each successful booking. These documents are official proof of vaccination.
+                <br /><br />
+                Make sure to keep them saved for travel, employment, or health record purposes.
+            </p>
+        </div>
+
+        <!-- Right Content Panel -->
+        <div class="form-half">
+            <div class="card-container">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var booking in Model)
+                    {
+                        <div class="booking-card">
+                            <div class="booking-id">Booking ID: @booking.BookId</div>
+                            <a asp-action="DownloadCertificate" asp-controller="Certificate" asp-route-bookId="@booking.BookId" class="btn btn-download">
+                                Download Certificate
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-muted">No bookings found for certificate download.</div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

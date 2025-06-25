@@ -1,50 +1,197 @@
 ﻿@{
     ViewData["Title"] = "Vaccine Feedback";
     var userId = Context.Session.GetString("UserId");
+    Layout = null;
 }
 
-<div class="container mt-4">
-    <h2>Submit Vaccine Feedback</h2>
-    <form id="feedbackForm">
-        <input type="hidden" id="UserId" value="@userId" />
-        <div class="mb-3">
-            <label for="VaccineId" class="form-label">Vaccine</label>
-            <select id="VaccineId" name="VaccineId" class="form-control" required>
-                <option value="">Select Vaccine</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="FullName" class="form-label">Full Name</label>
-            <input type="text" id="FullName" name="FullName" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label for="PhoneNumber" class="form-label">Phone Number</label>
-            <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label for="Rating" class="form-label">Rating (1-5)</label>
-            <input type="number" id="Rating" name="Rating" class="form-control" min="1" max="5" required />
-        </div>
-        <div class="mb-3">
-            <label for="Feedback" class="form-label">Feedback</label>
-            <textarea id="Feedback" name="Feedback" class="form-control" rows="4"></textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Submit Feedback</button>
-        <div id="feedbackMsg" class="mt-3"></div>
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Vaccine Feedback</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e3f0ff, #b6d0f7);
+            height: 100vh;
+            overflow: hidden;
+        }
 
-@section Scripts {
+        .split-screen {
+            display: flex;
+            height: 100vh;
+        }
+
+        .form-half {
+            width: 50%;
+            background: linear-gradient(135deg, #f1f8ff, #dceeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .info-half {
+            width: 50%;
+            background: url('/vaccine-feedback-info.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: #ffffff;
+            background-color: rgb(9 87 149 / 60%);
+            background-blend-mode: overlay;
+        }
+
+            .info-half h2 {
+                font-weight: bold;
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+
+            .info-half ul {
+                font-size: 18px;
+                padding-left: 20px;
+                list-style-type: disc;
+            }
+
+        .form-card {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 6px 32px rgba(0, 60, 120, 0.10);
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .form-title {
+            color: #2563eb;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #b6d0f7;
+            margin-bottom: 1rem;
+        }
+
+            .form-control:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 0.2rem rgba(37,99,235,.15);
+            }
+
+        .btn-success {
+            background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+            border: none;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+            .btn-success:hover {
+                background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+            }
+
+        .text-danger, .alert {
+            font-size: 0.95rem;
+        }
+
+        media (max-width: 991px) {
+            .split-screen
+
+        {
+            flex-direction: column;
+        }
+
+        .form-half, .info-half {
+            width: 100%;
+            height: auto;
+        }
+
+        .info-half {
+            padding: 30px 20px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="split-screen">
+        <!-- Feedback Form Section -->
+        <div class="form-half">
+            <div class="form-card">
+                <h2 class="form-title">Submit Vaccine Feedback</h2>
+                <form id="feedbackForm">
+                    <input type="hidden" id="UserId" value="@userId" />
+
+                    <div class="mb-3">
+                        <label for="VaccineId" class="form-label">Vaccine</label>
+                        <select id="VaccineId" name="VaccineId" class="form-control" required>
+                            <option value="">Select Vaccine</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="FullName" class="form-label">Full Name</label>
+                        <input type="text" id="FullName" name="FullName" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="PhoneNumber" class="form-label">Phone Number</label>
+                        <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Rating" class="form-label">Rating (1-5)</label>
+                        <input type="number" id="Rating" name="Rating" class="form-control" min="1" max="5" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Feedback" class="form-label">Feedback</label>
+                        <textarea id="Feedback" name="Feedback" class="form-control" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Submit Feedback</button>
+                    <div id="feedbackMsg" class="mt-3"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-half">
+            <h2>Why Your Feedback Matters</h2>
+            <ul>
+                <li>Helps improve vaccine services</li>
+                <li>Provides transparency for users</li>
+                <li>Assists in evaluating side effects</li>
+                <li>Encourages continuous improvement</li>
+            </ul>
+        </div>
+    </div>
+
     <script>
-        // Populate vaccines dropdown on load
+        // Populate vaccine dropdown
         window.onload = function () {
-            var userId = document.getElementById('UserId').value;
+            const userId = document.getElementById('UserId').value;
             fetch('/Vaccine/Feedback/Feedback?userId=' + userId)
                 .then(response => response.json())
                 .then(data => {
-                    var vaccineSelect = document.getElementById('VaccineId');
-                    data.forEach(function (v) {
-                        var option = document.createElement('option');
+                    const vaccineSelect = document.getElementById('VaccineId');
+                    data.forEach(v => {
+                        const option = document.createElement('option');
                         option.value = v.vaccineId;
                         option.text = v.vaccineName;
                         vaccineSelect.appendChild(option);
@@ -52,10 +199,10 @@
                 });
         };
 
-        // Handle form submission via AJAX
+        // Handle form submit
         document.getElementById('feedbackForm').onsubmit = function (e) {
             e.preventDefault();
-            var feedback = {
+            const feedback = {
                 UserId: document.getElementById('UserId').value,
                 VaccineId: document.getElementById('VaccineId').value,
                 FullName: document.getElementById('FullName').value,
@@ -80,4 +227,5 @@
             });
         };
     </script>
-}
+</body>
+</html>

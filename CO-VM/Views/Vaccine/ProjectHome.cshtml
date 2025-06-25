@@ -4,69 +4,156 @@
 
 <style>
     body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
         background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
         min-height: 100vh;
+        overflow-x: hidden;
     }
+
+    .split-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .left-half {
+        flex: 1;
+        background: linear-gradient(135deg, rgba(9, 87, 149, 0.6), rgba(9, 87, 149, 0.6));
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 60px;
+    }
+
+        .left-half h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .left-half p {
+            font-size: 1.25rem;
+            max-width: 450px;
+        }
+
+    .right-half {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+    }
+
+    .card-grid {
+        display: flex;
+        gap: 2rem;
+        flex-direction: column;
+        width: 100%;
+        max-width: 420px;
+    }
+
     .card-hover {
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 1rem;
+        background: #ffffff;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         cursor: pointer;
     }
-    .card-hover:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0.75rem 2rem rgba(13,110,253,0.10);
-    }
+
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+        }
+
     .card-body {
-        min-height: 350px;
+        padding: 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        background: linear-gradient(120deg, #f0f7ff 60%, #e6f2ff 100%);
-        border-radius: 1rem;
     }
+
     .icon-circle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         width: 90px;
         height: 90px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #e3f0ff 60%, #b6e0fe 100%);
-        box-shadow: 0 0.25rem 1rem rgba(13,110,253,0.08);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #d6eaff 40%, #bfdfff 100%);
         margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(13,110,253,0.12);
     }
-    .icon-circle i {
-        font-size: 3rem;
+
+        .icon-circle i {
+            font-size: 2.5rem;
+        }
+
+    h3.card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #0d3d77;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        text-align: center;
+        color: #5a6f8c;
+    }
+
+    media (max-width: 768px) {
+        .split-container
+
+    {
+        flex-direction: column;
+    }
+
+    .left-half, .right-half {
+        width: 100%;
+        padding: 40px 24px;
+        text-align: center;
+        align-items: center;
+    }
+
+        .left-half h1 {
+            font-size: 2.2rem;
+        }
+
     }
 </style>
 
-<div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 80vh;">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">Welcome to CO-VM</h1>
-        <p class="lead text-secondary">Your trusted platform for vaccine management and administration.</p>
+<div class="split-container">
+    <!-- Left Info -->
+    <div class="left-half">
+        <h1>Welcome to CO-VM</h1>
+        <p>
+            Your trusted digital platform for COVID vaccine booking, tracking, and management.
+            Secure, fast, and easy — for users and administrators alike.
+        </p>
     </div>
-    <div class="row w-100 justify-content-center">
-        <div class="col-md-5 mb-4">
-            <div class="card shadow-lg border-0 h-100 card-hover"
-                 onclick="window.location.href='/Vaccine/Login'">
+
+    <!-- Right Login Options -->
+    <div class="right-half">
+        <div class="card-grid">
+            <div class="card-hover" onclick="window.location.href='/Vaccine/Login'">
                 <div class="card-body">
                     <div class="icon-circle">
                         <i class="bi bi-person-circle text-primary"></i>
                     </div>
-                    <h3 class="card-title mt-2 mb-2 fw-semibold">User Login</h3>
-                    <p class="card-text text-center mb-4 text-secondary">Access your vaccination records, book appointments, and more.</p>
+                    <h3 class="card-title">User Login</h3>
+                    <p class="card-text">Access your vaccination history, appointments, and certificates.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-md-5 mb-4">
-            <div class="card shadow-lg border-0 h-100 card-hover"
-                 onclick="window.location.href='/Admin/AdminLogin'">
+
+            <div class="card-hover" onclick="window.location.href='/Admin/AdminLogin'">
                 <div class="card-body">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #e3ffe3 60%, #b6fcd5 100%);">
+                    <div class="icon-circle" style="background: linear-gradient(135deg, #d4ffe0 40%, #aaffc9 100%);">
                         <i class="bi bi-shield-lock text-success"></i>
                     </div>
-                    <h3 class="card-title mt-2 mb-2 fw-semibold">Admin Login</h3>
-                    <p class="card-text text-center mb-4 text-secondary">Manage vaccine inventory, appointments, and user records.</p>
+                    <h3 class="card-title">Admin Login</h3>
+                    <p class="card-text">Manage vaccine inventory, slots, and user registrations.</p>
                 </div>
             </div>
         </div>

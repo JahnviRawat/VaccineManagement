@@ -1,5 +1,8 @@
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Text;
+using CO_VM.Models;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddHttpClient();
+builder.Services.AddDbContext<CO_VM.Models.vaccineManagementContext>(options =>
+    options.UseSqlite("Data Source=vaccineManagement.db"));
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 var app = builder.Build();
 

@@ -7,102 +7,193 @@
 
 <style>
     body {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #e3f0ff 0%, #b6d0f7 50%, #6fa8dc 100%);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(120deg, #eaf6ff, #cfe2f3);
+        height: 100vh;
+        overflow: hidden;
     }
-    .booking-container {
-        background: rgba(255,255,255,0.95);
-        border-radius: 18px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-        padding: 2.5rem 2rem 2rem 2rem;
+
+    .split-screen {
+        display: flex;
+        height: 100vh;
+    }
+
+    .form-half {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(145deg, #f0f7ff, #dceeff);
+        overflow-y: auto;
+        padding: 2rem;
+    }
+
+    .info-half {
+        width: 50%;
+        background: url('/slot-info.jpg') no-repeat center center;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px;
+        color: #ffffff;
+        background-blend-mode: overlay;
+        background-color: rgb(9 87 149 / 60%);
+        
+    }
+
+        .info-half h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-shadow: 1px 1px 4px #00000044;
+        }
+
+        .info-half ul {
+            list-style: disc;
+            padding-left: 20px;
+            font-size: 18px;
+        }
+
+    .card-slot {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        width: 100%;
         max-width: 480px;
-        margin: 48px auto;
     }
-    .booking-title {
-        font-weight: 700;
-        color: #2563eb;
-        margin-bottom: 1.5rem;
-        text-align: center;
-        letter-spacing: 1px;
-    }
+
+        .card-slot h3 {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #1976d2;
+        }
+
     .form-label {
-        font-weight: 600;
-        color: #1e293b;
+        font-weight: 500;
+        color: #2d3a4b;
     }
+
     .form-control {
         border-radius: 8px;
-        border: 1px solid #b6d0f7;
-        margin-bottom: 1rem;
-        font-size: 1rem;
-        transition: border-color 0.2s;
+        border: 1px solid #cfd8dc;
+        padding: 10px 12px;
     }
-    .form-control:focus {
-        border-color: #2563eb;
-        box-shadow: 0 0 0 2px #b6d0f7;
-    }
+
     .btn-success {
-        background: linear-gradient(90deg, #2563eb 0%, #6fa8dc 100%);
+        background: #1976d2;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        transition: background 0.2s ease;
+    }
+
+        .btn-success:hover {
+            background: #125ea4;
+        }
+
+    .btn-secondary {
+        background: #e0e7ef;
+        color: #1976d2;
         border: none;
         font-weight: 600;
-        padding: 0.5rem 1.5rem;
+        padding: 10px;
+        width: 100%;
         border-radius: 8px;
-        transition: background 0.2s;
+        margin-top: 10px;
     }
-    .btn-success:hover {
-        background: linear-gradient(90deg, #1e40af 0%, #4682b4 100%);
-    }
-    .btn-secondary {
-        border-radius: 8px;
-        font-weight: 600;
-        padding: 0.5rem 1.5rem;
-    }
+
+        .btn-secondary:hover {
+            background: #cfd8f0;
+        }
+
     .alert-danger {
+        font-size: 14px;
         border-radius: 8px;
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
+    }
+
+    media (max-width: 991px) {
+        .split-screen
+
+    {
+        flex-direction: column;
+    }
+
+    .form-half, .info-half {
+        width: 100%;
+        height: auto;
+    }
+
+    .info-half {
+        padding: 30px 20px;
+    }
+
     }
 </style>
 
-<div class="booking-container">
-    <h2 class="booking-title">Book Vaccination Slot for @user.FullName</h2>
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger">@ViewBag.Error</div>
-    }
+<div class="split-screen">
+    <div class="form-half">
+        <div class="card-slot">
+            <h3>Book Slot for @user.FullName</h3>
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
 
-    <form asp-action="BookSlotForUser" method="post">
-        <div class="mb-3">
-            <label class="form-label">Vaccine</label>
-            <select name="vaccineId" class="form-control" required>
-                <option value="">Select</option>
-                @foreach (var v in vaccines)
-                {
-                    <option value="@v.VaccineId">@v.VaccineName</option>
-                }
-            </select>
+            <form asp-action="BookSlotForUser" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Vaccine</label>
+                    <select name="vaccineId" class="form-control" required>
+                        <option value="">Select</option>
+                        @foreach (var v in vaccines)
+                        {
+                            <option value="@v.VaccineId">@v.VaccineName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Centre</label>
+                    <select name="centreId" class="form-control" required>
+                        <option value="">Select</option>
+                        @foreach (var c in centres)
+                        {
+                            <option value="@c.CentreId">@c.CentreName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Slot Date</label>
+                    <input type="date" name="slotDate" class="form-control" required min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Slot Time</label>
+                    <input type="time" name="slotTime" class="form-control" required min="09:00" max="18:00" />
+                </div>
+
+                <button type="submit" class="btn btn-success mt-2">Book Slot</button>
+                <a asp-action="UserDashboard" class="btn btn-secondary">Cancel</a>
+            </form>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Centre</label>
-            <select name="centreId" class="form-control" required>
-                <option value="">Select</option>
-                @foreach (var c in centres)
-                {
-                    <option value="@c.CentreId">@c.CentreName</option>
-                }
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Slot Date</label>
-            <input type="date" name="slotDate" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Slot Time</label>
-            <input type="time" name="slotTime" class="form-control" required />
-        </div>
-        <div class="d-flex justify-content-between align-items-center mt-4">
-            <button type="submit" class="btn btn-success">Book Slot</button>
-            <a asp-action="UserDashboard" class="btn btn-secondary ms-2">Cancel</a>
-        </div>
-    </form>
+    </div>
+
+    <div class="info-half">
+        <h2>Vaccination Scheduling</h2>
+        <ul>
+            <li>Choose your preferred vaccine and center</li>
+            <li>Select your convenient date and time</li>
+            <li>Ensure timely immunization and safety</li>
+            <li>Instant booking confirmation</li>
+        </ul>
+    </div>
 </div>

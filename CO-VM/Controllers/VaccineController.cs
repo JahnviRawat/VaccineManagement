@@ -345,7 +345,7 @@ namespace CO_VM.Controllers
                 {
                     HttpContext.Session.SetString("UserId", user.UserId.ToString());
                     ViewBag.a = "Login Successful";
-                    return RedirectToAction("Vaccines");
+                    return RedirectToAction("Index");
                 }
                 else
                 {

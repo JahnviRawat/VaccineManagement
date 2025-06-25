@@ -9,98 +9,197 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #e3f0ff 0%, #b6d0f7 50%, #6ea8fe 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e3f0ff, #b6d0f7);
+            height: 100vh;
+            overflow: hidden;
         }
-        .form-container {
-            background: #fff;
+
+        .split-screen {
+            display: flex;
+            height: 100vh;
+        }
+
+        .form-half {
+            width: 50%;
+            background: linear-gradient(135deg, #f1f8ff, #dceeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .info-half {
+            width: 50%;
+            background: url('/family-info.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: #ffffff;
+            background-blend-mode: overlay;
+            background-color: rgba(30, 64, 175, 0.6);
+        }
+
+            .info-half h2 {
+                font-weight: bold;
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+
+            .info-half ul {
+                font-size: 18px;
+                padding-left: 20px;
+                list-style-type: disc;
+            }
+
+        .form-card {
+            background: #ffffff;
             border-radius: 18px;
             box-shadow: 0 6px 32px rgba(0, 60, 120, 0.10);
-            padding: 2.5rem 2rem 2rem 2rem;
+            padding: 2.5rem 2rem;
+            width: 100%;
             max-width: 480px;
-            margin: 60px auto;
         }
+
         .form-title {
             color: #2563eb;
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
         }
+
         .form-label {
-            font-weight: 500;
+            font-weight: 600;
             color: #1e293b;
         }
-        .form-control:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 0.2rem rgba(37,99,235,.15);
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #b6d0f7;
         }
+
+            .form-control:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 0.2rem rgba(37,99,235,.15);
+            }
+
         .btn-success {
             background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
             border: none;
             font-weight: 600;
+            border-radius: 8px;
         }
-        .btn-success:hover {
-            background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
-        }
+
+            .btn-success:hover {
+                background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 100%);
+            }
+
         .btn-secondary {
+            border-radius: 8px;
             font-weight: 500;
         }
+
         .text-danger {
             font-size: 0.95em;
+        }
+
+        media (max-width: 991px) {
+            .split-screen
+
+        {
+            flex-direction: column;
+        }
+
+        .form-half,
+        .info-half {
+            width: 100%;
+            height: auto;
+        }
+
+        .info-half {
+            padding: 30px 20px;
+        }
+
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2 class="form-title">Add Family Member</h2>
-        <form asp-action="Family" method="post" autocomplete="off">
-            <div class="mb-3">
-                <label asp-for="FullName" class="form-label"></label>
-                <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
-                @Html.ValidationMessageFor(c => c.FullName, "", new { @class = "text-danger" })
+    <div class="split-screen">
+        <!-- Left side: Form -->
+        <div class="form-half">
+            <div class="form-card">
+                <h2 class="form-title">Add Family Member</h2>
+                <form asp-action="Family" method="post" autocomplete="off">
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-label"></label>
+                        <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                        @Html.ValidationMessageFor(c => c.FullName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Dob" class="form-label">Date of Birth</label>
+                        <input asp-for="Dob" type="date" class="form-control" />
+                        @Html.ValidationMessageFor(c => c.Dob, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Gender" class="form-label"></label>
+                        <select asp-for="Gender" class="form-control">
+                            <option value="">Select Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                        @Html.ValidationMessageFor(c => c.Gender, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="RelationId" class="form-label">Relation</label>
+                        <select asp-for="RelationId" class="form-control" required>
+                            <option value="">Select Relation</option>
+                            @foreach (var r in ViewBag.Relations)
+                            {
+                                <option value="@r.RelationId">@r.RelationType</option>
+                            }
+                        </select>
+                        <span asp-validation-for="RelationId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AadhaarNo" class="form-label"></label>
+                        <input asp-for="AadhaarNo" class="form-control" maxlength="12" placeholder="Enter Aadhaar Number" />
+                        @Html.ValidationMessageFor(c => c.AadhaarNo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <button type="submit" class="btn btn-success px-4">Add Family Member</button>
+                        <a asp-action="UserDashboard" class="btn btn-secondary ms-2">Cancel</a>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label asp-for="Dob" class="form-label">Date of Birth</label>
-                <input asp-for="Dob" type="date" class="form-control" />
-                @Html.ValidationMessageFor(c => c.Dob, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                <label asp-for="Gender" class="form-label"></label>
-                <select asp-for="Gender" class="form-control">
-                    <option value="">Select Gender</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
-                </select>
-                @Html.ValidationMessageFor(c => c.Gender, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                <label asp-for="RelationId" class="form-label">Relation</label>
-                <select asp-for="RelationId" class="form-control" required>
-                    <option value="">Select Relation</option>
-                    @foreach (var r in ViewBag.Relations)
-                    {
-                        <option value="@r.RelationId">@r.RelationType</option>
-                    }
-                </select>
-                <span asp-validation-for="RelationId" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="AadhaarNo" class="form-label"></label>
-                <input asp-for="AadhaarNo" class="form-control" maxlength="12" placeholder="Enter Aadhaar Number" />
-                @Html.ValidationMessageFor(c => c.AadhaarNo, "", new { @class = "text-danger" })
-            </div>
-            <div class="d-flex justify-content-between align-items-center mt-4">
-                <button type="submit" class="btn btn-success px-4">Add Family Member</button>
-                <a asp-action="UserDashboard" class="btn btn-secondary ms-2">Cancel</a>
-            </div>
-        </form>
+        </div>
+
+        <!-- Right side: Info content -->
+        <div class="info-half">
+            <h2>Why Add Family Members?</h2>
+            <ul>
+                <li>Book vaccines on their behalf</li>
+                <li>Manage appointments from one place</li>
+                <li>Ensure timely immunization for your loved ones</li>
+                <li>Track their vaccination history</li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

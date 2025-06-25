@@ -126,7 +126,9 @@ namespace CO_VM.Controllers
 
 
                 //byte[] adminpassword = Password as byte[];
-                byte[] adminpassword = HashPassword(Password);
+                //byte[] adminpassword = HashPassword(Password);
+                byte[] adminpassword = System.Text.Encoding.UTF8.GetBytes(Password);
+
                 var admin = vm.Admins.FirstOrDefault(a => a.Username == Username && a.Password.SequenceEqual(adminpassword));
                 if (admin != null)
                 {

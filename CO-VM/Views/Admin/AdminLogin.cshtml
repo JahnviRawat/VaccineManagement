@@ -8,119 +8,195 @@
     <meta charset="utf-8" />
     <title>Admin Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          integrity="sha512-papNMHlvK3DoypdtVZtvpJvM33YxP4iTXqU2Gq3CUM2zOvR+ACF7JpPpR8gE3WYNo4mFSLU0J08TxR+BXTf1dA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(120deg, #eaf6ff, #cfe2f3);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .split-screen {
             display: flex;
-            align-items: center;
+            height: 100vh;
+        }
+
+        .login-half {
+            width: 50%;
+            display: flex;
             justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #f0f7ff, #dceeff);
         }
 
-        .login-container {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-            padding: 40px 36px 32px 36px;
-            max-width: 420px;
+        .info-half {
+            width: 50%;
+            background: url('/admin-info.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: #ffffff;
+            background-blend-mode: overlay;
+            background-color: rgba(9, 87, 149, 0.6);
+        }
+
+            .info-half h2 {
+                font-weight: bold;
+                margin-bottom: 20px;
+                font-size: 32px;
+                text-shadow: 1px 1px 4px #00000044;
+            }
+
+            .info-half ul {
+                list-style: disc;
+                padding-left: 20px;
+                font-size: 18px;
+            }
+
+        .card-login {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
             width: 100%;
+            max-width: 420px;
         }
 
-        .login-title {
-            text-align: center;
-            font-weight: 700;
-            color: #2a3b5d;
-            margin-bottom: 18px;
-        }
+            .card-login h4 {
+                text-align: center;
+                font-weight: 600;
+                margin-bottom: 30px;
+                color: #1976d2;
+            }
 
         .form-label {
-            font-weight: 600;
-            color: #2a3b5d;
+            font-weight: 500;
+            color: #2d3a4b;
         }
 
         .form-control {
             border-radius: 8px;
+            border: 1px solid #cfd8dc;
+            padding: 10px 12px;
         }
 
-        .btn-success {
-            width: 100%;
+        .btn-login {
+            background: #1976d2;
+            color: #fff;
             font-weight: 600;
             border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            transition: background 0.2s ease;
         }
 
-        .captcha-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
+            .btn-login:hover {
+                background: #125ea4;
+            }
 
-        #captcha-code {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            background: #f0f4fa;
+        .captcha-display {
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 6px 12px;
+            background: #f1f1f1;
+            border: 1px solid #ccc;
             border-radius: 6px;
-            min-width: 80px;
-            text-align: center;
+            user-select: none;
+            letter-spacing: 4px;
         }
 
         .text-danger {
-            font-size: 0.95rem;
+            font-size: 14px;
         }
 
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            border-radius: 6px;
-            padding: 8px 12px;
-            margin-bottom: 10px;
-            text-align: center;
+        media (max-width: 991px) {
+            .split-screen
+
+        {
+            flex-direction: column;
+        }
+
+        .login-half,
+        .info-half {
+            width: 100%;
+            height: auto;
+        }
+
+        .info-half {
+            padding: 40px 20px;
+        }
+
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1 class="login-title">Admin Login</h1>
-        <hr />
-        <form method="post" autocomplete="off">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-2" })
+    <div class="split-screen">
+        <div class="login-half">
+            <div class="card-login">
+                <h4><i class="fa-solid fa-user-shield me-2"></i>Admin Login</h4>
 
-            <div class="mb-3">
-                <label class="form-label"><strong>Username</strong></label>
-                @Html.TextBoxFor(c => c.Username, new { @class = "form-control", placeholder = "Enter your username" })
-                @Html.ValidationMessageFor(c => c.Username, "", new { @class = "text-danger" })
+                <form method="post" autocomplete="off">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger mb-2" })
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        @Html.TextBoxFor(c => c.Username, new { @class = "form-control", placeholder = "Enter username" })
+                        @Html.ValidationMessageFor(c => c.Username, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        @Html.PasswordFor(c => c.Password, new { @class = "form-control", placeholder = "Enter password" })
+                        @Html.ValidationMessageFor(c => c.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Captcha</label>
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <span id="captcha-code" class="captcha-display"></span>
+                            <button type="button" onclick="refreshCaptcha();" class="btn btn-outline-secondary btn-sm">Refresh</button>
+                        </div>
+                        <input type="text" name="Captcha" class="form-control" placeholder="Enter captcha here" />
+                        <span class="text-danger">@ViewBag.CaptchaError</span>
+                    </div>
+
+                    @if (ViewBag.a != null)
+                    {
+                        <div class="alert alert-info mt-2">@ViewBag.a</div>
+                    }
+
+                    <button type="submit" class="btn btn-login mt-3">LOGIN</button>
+                </form>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label"><strong>Password</strong></label>
-                @Html.PasswordFor(c => c.Password, new { @class = "form-control", placeholder = "Enter your password" })
-                @Html.ValidationMessageFor(c => c.Password, "", new { @class = "text-danger" })
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label"><strong>Captcha</strong></label>
-                <div class="captcha-box">
-                    <span id="captcha-code"></span>
-                    <button type="button" onclick="refreshCaptcha();" class="btn btn-link p-0" title="Refresh Captcha">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d6efd" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 1 1 .908-.418A4 4 0 1 0 8 4V1.5a.5.5 0 0 1 1 0v3A.5.5 0 0 1 8.5 5h-3a.5.5 0 0 1 0-1H8z" />
-                        </svg>
-                    </button>
-                </div>
-                <input type="text" name="Captcha" class="form-control" placeholder="Enter captcha" autocomplete="off" />
-                <span class="text-danger">@ViewBag.CaptchaError</span>
-            </div>
-
-            @if (!string.IsNullOrEmpty(ViewBag.a as string))
-            {
-                <div class="success-message">@ViewBag.a</div>
-            }
-
-            <button type="submit" class="btn btn-success mt-2">Login</button>
-        </form>
+        <div class="info-half">
+            <h2>Admin Dashboard Access</h2>
+            <ul>
+                <li>Manage vaccine centers and staff</li>
+                <li>Oversee user registrations</li>
+                <li>Generate vaccination reports</li>
+                <li>Control system-wide settings</li>
+            </ul>
+        </div>
     </div>
+
     <script>
         function refreshCaptcha() {
             fetch('@Url.Action("Captcha", "Vaccine")')
@@ -129,6 +205,7 @@
                     document.getElementById('captcha-code').innerText = data;
                 });
         }
+
         window.onload = function () {
             refreshCaptcha();
         };
