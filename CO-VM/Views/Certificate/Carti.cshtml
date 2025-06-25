@@ -1,0 +1,20 @@
+﻿@model List<CO_VM.Models.Booking>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@if (Model != null)
+{
+    foreach (var booking in Model)
+    {
+        <div>
+            Booking ID: @booking.BookId
+            <a asp-action="DownloadCertificate" asp-controller="Certificate" asp-route-bookId="@booking.BookId" class="btn btn-primary">
+                Download Certificate
+            </a>
+        </div>
+    }
+}

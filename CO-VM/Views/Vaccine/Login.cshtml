@@ -1,0 +1,347 @@
+﻿@model CO_VM.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(120deg, #e3edf7 0%, #b3c6e7 50%, #f5f7fa 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .main-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login-section {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        padding: 40px 32px;
+        max-width: 400px;
+        width: 100%;
+        margin: 32px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .login-section h4 {
+        font-weight: 600;
+        margin-bottom: 24px;
+        text-align: center;
+        color: #2d3a4b;
+    }
+    .form-label {
+        font-weight: 500;
+        color: #2d3a4b;
+    }
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #cfd8dc;
+        box-shadow: none;
+        font-size: 16px;
+    }
+    .btn-success {
+        background: #3b6cb7;
+        border: none;
+        font-weight: 500;
+        letter-spacing: 1px;
+        transition: background 0.2s;
+    }
+    .btn-success:hover {
+        background: #274b7a;
+    }
+    .captcha-display {
+        font-family: monospace;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        padding: 6px 12px;
+        border: 1px solid #cfd8dc;
+        background-color: #f5f7fa;
+        border-radius: 5px;
+        user-select: none;
+        width: auto;
+        display: inline-block;
+    }
+    .static-info-section {
+        background: rgba(255,255,255,0.85);
+        border-radius: 10px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        padding: 40px 32px;
+        max-width: 400px;
+        width: 100%;
+        margin: 32px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .static-info-section h5 {
+        color: #2d3a4b;
+        font-weight: 600;
+        margin-bottom: 16px;
+    }
+    .static-info-section ul {
+        padding-left: 18px;
+        color: #4b5a6b;
+        font-size: 15px;
+    }
+    media (max-width: 991px) {
+        .main-container {
+            flex-direction: column;
+        }
+        .login-section, .static-info-section {
+            max-width: 100%;
+            margin: 16px 0;
+        }
+    }
+</style>
+
+<div class="main-container">
+    <div class="login-section">
+        <h4>
+            <img src="~/user.webp" alt="User" width="44" class="me-2 border rounded-circle" style="vertical-align: middle;" />Login
+        </h4>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                @Html.TextBoxFor(c => c.Username, new { @class = "form-control", placeholder = "Enter Username" })
+                @Html.ValidationMessageFor(c => c.Username, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                @Html.PasswordFor(c => c.Password, new { @class = "form-control", placeholder = "Enter Password" })
+                @Html.ValidationMessageFor(c => c.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Captcha</label>
+                <div class="d-flex align-items-center mb-2">
+                    <span id="captcha-code" class="captcha-display me-3"></span>
+                    <button type="button" onclick="refreshCaptcha();" class="btn btn-outline-secondary btn-sm">Refresh</button>
+                </div>
+                <input type="text" name="Captcha" class="form-control" placeholder="Enter captcha here" autocomplete="off" />
+                <span class="text-danger">@ViewBag.CaptchaError</span>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+                <a href="@Url.Action("ForgotPassword", "Vaccine")">Forgot Password</a>
+                <a href="@Url.Action("ResetPassword", "Vaccine")">Reset Password</a>
+                <a href="@Url.Action("Register", "Vaccine")">New User</a>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">LOGIN</button>
+        }
+
+        @if (TempData["Success"] != null)
+        {
+            <script>
+                alert("@TempData["Success"]");
+            </script>
+        }
+    </div>
+    <div class="static-info-section ms-4">
+        <h5>Welcome to the Vaccine Management Portal</h5>
+        <ul>
+            <li>Securely manage your vaccination records.</li>
+            <li>Book and track your vaccination appointments.</li>
+            <li>Access your digital vaccination certificate anytime.</li>
+            <li>Stay updated with the latest health advisories.</li>
+        </ul>
+        <div style="margin-top:24px;">
+            <img src="~/vaccine-info.webp" alt="Vaccine Info" style="width:100%;max-width:220px;display:block;margin:auto;" />
+        </div>
+    </div>
+</div>
+
+@* @model CO_VM.Models.User *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Login"; *@
+@*     var infoItems = new List<string> *@
+@*     { *@
+@*         "Securely manage your vaccination records.", *@
+@*         "Book and track your vaccination appointments.", *@
+@*         "Access your digital vaccination certificate anytime.", *@
+@*         "Stay updated with the latest health advisories." *@
+@*     }; *@
+@* } *@
+
+@* <style> *@
+@*     body { *@
+@*         min-height: 100vh; *@
+@*         margin: 0; *@
+@*         background: linear-gradient(120deg, #e3edf7 0%, #b3c6e7 50%, #f5f7fa 100%); *@
+@*         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; *@
+@*     } *@
+@*     .main-container { *@
+@*         min-height: 100vh; *@
+@*         display: flex; *@
+@*         align-items: center; *@
+@*         justify-content: center; *@
+@*     } *@
+@*     .login-section { *@
+@*         background: #fff; *@
+@*         border-radius: 10px; *@
+@*         box-shadow: 0 4px 24px rgba(0,0,0,0.07); *@
+@*         padding: 40px 32px; *@
+@*         max-width: 400px; *@
+@*         width: 100%; *@
+@*         margin: 32px 0; *@
+@*         display: flex; *@
+@*         flex-direction: column; *@
+@*         justify-content: center; *@
+@*     } *@
+@*     .login-section h4 { *@
+@*         font-weight: 600; *@
+@*         margin-bottom: 24px; *@
+@*         text-align: center; *@
+@*         color: #2d3a4b; *@
+@*     } *@
+@*     .form-label { *@
+@*         font-weight: 500; *@
+@*         color: #2d3a4b; *@
+@*     } *@
+@*     .form-control { *@
+@*         border-radius: 5px; *@
+@*         border: 1px solid #cfd8dc; *@
+@*         box-shadow: none; *@
+@*         font-size: 16px; *@
+@*     } *@
+@*     .btn-success { *@
+@*         background: #3b6cb7; *@
+@*         border: none; *@
+@*         font-weight: 500; *@
+@*         letter-spacing: 1px; *@
+@*         transition: background 0.2s; *@
+@*     } *@
+@*     .btn-success:hover { *@
+@*         background: #274b7a; *@
+@*     } *@
+@*     .captcha-display { *@
+@*         font-family: monospace; *@
+@*         font-size: 18px; *@
+@*         font-weight: bold; *@
+@*         letter-spacing: 4px; *@
+@*         padding: 6px 12px; *@
+@*         border: 1px solid #cfd8dc; *@
+@*         background-color: #f5f7fa; *@
+@*         border-radius: 5px; *@
+@*         user-select: none; *@
+@*         width: auto; *@
+@*         display: inline-block; *@
+@*     } *@
+@*     .static-info-section { *@
+@*         background: rgba(255,255,255,0.85); *@
+@*         border-radius: 10px; *@
+@*         box-shadow: 0 4px 24px rgba(0,0,0,0.04); *@
+@*         padding: 40px 32px; *@
+@*         max-width: 400px; *@
+@*         width: 100%; *@
+@*         margin: 32px 0; *@
+@*         display: flex; *@
+@*         flex-direction: column; *@
+@*         justify-content: center; *@
+@*     } *@
+@*     .static-info-section h5 { *@
+@*         color: #2d3a4b; *@
+@*         font-weight: 600; *@
+@*         margin-bottom: 16px; *@
+@*     } *@
+@*     .static-info-section ul { *@
+@*         padding-left: 18px; *@
+@*         color: #4b5a6b; *@
+@*         font-size: 15px; *@
+@*     } *@
+@*     media (max-width: 991px) { *@
+@*         .main-container { *@
+@*             flex-direction: column; *@
+@*         } *@
+@*         .login-section, .static-info-section { *@
+@*             max-width: 100%; *@
+@*             margin: 16px 0; *@
+@*         } *@
+@*     } *@
+@* </style> *@
+
+@* <div class="main-container"> *@
+@*     <div class="login-section"> *@
+@*         <h4> *@
+@*             <img src="~/user.webp" alt="User" width="44" class="me-2 border rounded-circle" style="vertical-align: middle;" />Login *@
+@*         </h4> *@
+@*         @using (Html.BeginForm()) *@
+@*         { *@
+@*             @Html.ValidationSummary(true, "", new { @class = "text-danger" }) *@
+
+@*             <div class="mb-3"> *@
+@*                 <label class="form-label">Username</label> *@
+@*                 @Html.TextBoxFor(c => c.Username, new { @class = "form-control", placeholder = "Enter Username" }) *@
+@*                 @Html.ValidationMessageFor(c => c.Username, "", new { @class = "text-danger" }) *@
+@*             </div> *@
+
+@*             <div class="mb-3"> *@
+@*                 <label class="form-label">Password</label> *@
+@*                 @Html.PasswordFor(c => c.Password, new { @class = "form-control", placeholder = "Enter Password" }) *@
+@*                 @Html.ValidationMessageFor(c => c.Password, "", new { @class = "text-danger" }) *@
+@*             </div> *@
+
+@*             <div class="mb-3"> *@
+@*                 <label class="form-label">Captcha</label> *@
+@*                 <div class="d-flex align-items-center mb-2"> *@
+@*                     <span id="captcha-code" class="captcha-display me-3"></span> *@
+@*                     <button type="button" onclick="refreshCaptcha();" class="btn btn-outline-secondary btn-sm">Refresh</button> *@
+@*                 </div> *@
+@*                 <input type="text" name="Captcha" class="form-control" placeholder="Enter captcha here" autocomplete="off" /> *@
+@*                 <span class="text-danger">@ViewBag.CaptchaError</span> *@
+@*             </div> *@
+
+@*             <div class="d-flex justify-content-between mb-3"> *@
+@*                 <a href="@Url.Action("ForgotPassword", "Vaccine")">Forgot Password</a> *@
+@*                 <a href="@Url.Action("ResetPassword", "Vaccine")">Reset Password</a> *@
+@*                 <a href="@Url.Action("Register", "Vaccine")">New User</a> *@
+@*             </div> *@
+
+@*             <button type="submit" class="btn btn-success w-100">LOGIN</button> *@
+@*         } *@
+
+@*         @if (TempData["Success"] != null) *@
+@*         { *@
+@*             <script> *@
+@*                 alert("@TempData["Success"]"); *@
+@*             </script> *@
+@*         } *@
+@*     </div> *@
+@*     <div class="static-info-section ms-4"> *@
+@*         <h5>Welcome to the Vaccine Management Portal</h5> *@
+@*         <ul> *@
+@*             @foreach (var item in infoItems) *@
+@*             { *@
+@*                 <li>@item</li> *@
+@*             } *@
+@*         </ul> *@
+@*         <div style="margin-top:24px;"> *@
+@*             <img src="~/vaccine-info.webp" alt="Vaccine Info" style="width:100%;max-width:220px;display:block;margin:auto;" /> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+@* <script> *@
+@*     function refreshCaptcha() { *@
+@*         fetch('@Url.Action("Captcha", "Vaccine")') *@
+@*             .then(response => response.text()) *@
+@*             .then(data => { *@
+@*                 document.getElementById('captcha-code').innerText = data; *@
+@*             }); *@
+@*     } *@
+@*     window.onload = function () { *@
+@*         refreshCaptcha(); *@
+@*     }; *@
+@* </script> *@

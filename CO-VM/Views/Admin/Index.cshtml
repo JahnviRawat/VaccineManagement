@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+    var feedbacks = ViewBag.Feedbacks as IEnumerable<dynamic>;
+}
+
+<div class="container py-5" style="min-height: 80vh;">
+    <h2 class="mb-4 fw-bold text-primary">Admin Dashboard</h2>
+
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-semibold">Total Users</h5>
+                    <p class="display-6 fw-bold text-success">@ViewBag.TotalUsers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-semibold">Vaccines Available</h5>
+                    <p class="display-6 fw-bold text-info">@ViewBag.TotalVaccines</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-semibold">Feedbacks Received</h5>
+                    <p class="display-6 fw-bold text-warning">@ViewBag.TotalFeedbacks</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-3 mt-5 fw-semibold text-secondary">Recent User Feedback</h4>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm bg-white rounded">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Vaccine</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Feedback</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (feedbacks != null && feedbacks.Any())
+                {
+                    foreach (var f in feedbacks)
+                    {
+                        <tr>
+                            <td>@f.User</td>
+                            <td>@f.Vaccine</td>
+                            <td>@f.Phone</td>
+                            <td>
+                                <span class="text-warning">
+                                    @{
+                                        int rating = f.Rating ?? 0;
+                                        for (int i = 0; i < rating; i++)
+                                        {
+                                            @:★
+                                        }
+                                        for (int j = rating; j < 5; j++)
+                                        {
+                                            @:☆
+                                        }
+                                    }
+                                </span>
+                            </td>
+                            <td>@f.Feedback</td>
+                            <td>@(f.Date != null ? ((DateTime)f.Date).ToString("yyyy-MM-dd") : "")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">No feedbacks available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer class="footer mt-auto py-3 text-center text-muted">
+    <div class="container">
+        <span>© @DateTime.Now.Year CO-VM Admin Dashboard. All rights reserved.</span>
+    </div>
+</footer>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 50%, #b6d0f7 100%);
+        min-height: 100vh;
+    }
+    .table thead th {
+        font-weight: 600;
+        letter-spacing: 0.03em;
+    }
+    .table td, .table th {
+        vertical-align: middle;
+    }
+    .card {
+        border-radius: 1rem;
+    }
+    .footer {
+        background: rgba(255,255,255,0.7);
+        border-top: 1px solid #e3e3e3;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+</style>

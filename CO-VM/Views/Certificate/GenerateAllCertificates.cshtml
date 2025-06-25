@@ -1,0 +1,25 @@
+﻿@model CO_VM.Models.Booking;
+
+<h2>Create Certificate</h2>
+
+
+@if (ViewBag.Message != null)
+
+{
+    <p>@ViewBag.Message</p>
+}
+<br />
+<br />
+<br />
+<br />
+
+
+<form method="post">
+
+    <div>
+        <label for="certificateDate">Certification Date:</label>
+        <input type="date" id="certificateDate" name="certificateDate" />
+    </div>
+    <button type="submit">Create Certificate</button>
+
+</form>

@@ -1,0 +1,75 @@
+﻿@model List<CO_VM.Models.Booking>
+
+<h2>User History</h2>
+@if (ViewBag.UserHistory != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Vaccine</th>
+                <th>Slot</th>
+                <th>Status</th>
+                <th>Dose Number</th>
+                <th>Vaccinated On</th>
+                <th>Payment Mode</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in ViewBag.UserHistory as List<CO_VM.Models.Booking>)
+            {
+                <tr>
+                    <td>@i.BookId</td>
+                    <td>@i.Vaccine?.VaccineName</td>
+                    <td>@i.Slot?.SlotDate @i.Slot?.SlotTime</td>
+                    <td>@i.Status</td>
+                    <td>@i.DoseNumber</td>
+                    <td>@i.VaccinatedOn</td>
+                    <td>@i.PaymentMode</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>There is no History Data</p>
+}
+
+<h2>Family History</h2>
+@if (ViewBag.FamilyHistory is List<CO_VM.Models.Booking> familyHistory)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Family Member</th>
+                <th>Vaccine</th>
+                <th>Slot</th>
+                <th>Status</th>
+                <th>Dose Number</th>
+                <th>Vaccinated On</th>
+                <th>Payment Mode</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in familyHistory)
+            {
+                <tr>
+                    <td>@i.BookId</td>
+                    <td>@i.Family?.FullName</td>
+                    <td>@i.Vaccine?.VaccineName</td>
+                    <td>@i.Slot?.SlotDate @i.Slot?.SlotTime</td>
+                    <td>@i.Status</td>
+                    <td>@i.DoseNumber</td>
+                    <td>@i.VaccinatedOn</td>
+                    <td>@i.PaymentMode</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <tr><td colspan="8">No data available</td></tr>
+}

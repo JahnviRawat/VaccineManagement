@@ -1,0 +1,22 @@
+﻿@model CO_VM.Models.Booking
+<br>
+<br />
+<h1 style="text-align:center">UPDATE USER STATUS</h1>
+<hr />
+<div class="container bg-light shadow-lg" style="margin-left:700px; height:400px; width:600px">
+    <br /> <br />
+    <form method="post" asp-action="Status" style="align-items:center;margin-left:20px">
+        <label class="form-label">Book Id: </label>
+        <input type="text" asp-for="BookId" class="form-control" style="width:400px" /><br />
+
+        <label class="form-label">Dose Number: </label>
+        <input type="text" asp-for="DoseNumber" class="form-control" style="width:400px" /><br />
+
+        <label class="form-label">Vaccination Date: </label>
+        <input type="date" asp-for="VaccinatedOn" class="form-control" style="width:400px" /><br />
+
+        <input type="submit" value="Update" class="btn btn-info" /> <br />
+    </form>
+    <span class="bg-success"> @ViewBag.Status </span>
+</div>
+
