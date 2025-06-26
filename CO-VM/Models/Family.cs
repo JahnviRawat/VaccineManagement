@@ -12,9 +12,8 @@ public partial class Family
 
     public int UserId { get; set; }
 
-
-    [Required(ErrorMessage = "UserName is required")]
-    [StringLength(50, ErrorMessage = "Username cannot exceed 50 characters")]
+    [Required(ErrorMessage = "FullName is required")]
+    [StringLength(50, ErrorMessage = "Fullname cannot exceed 50 characters")]
     public string FullName { get; set; }
 
     [Required(ErrorMessage = "Date of Birth is required")]
@@ -27,12 +26,11 @@ public partial class Family
     [Required(ErrorMessage = "Aadhar no is required")]
     [RegularExpression(@"^\d{12}$", ErrorMessage = "Aadhaar number must be 12 digits")]
     public string AadhaarNo { get; set; }
-
     public int? RelationId { get; set; }
 
-    public virtual Relation Relation { get; set; }
-
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
+    public virtual Relation Relation { get; set; }
 
     public virtual ICollection<Slot> Slots { get; set; } = new List<Slot>();
 

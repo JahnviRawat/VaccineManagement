@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wdNr9P36KlIdYoFHVMLrv9c1NDvymRWwfzoCZ8z9IK4=",
+  "Hash": "gVubSLUB/5AaBLDGvZXLIaLTFO7aL52MxlHfwHrpnD4=",
   "Source": "CO-VM",
   "BasePath": "_content/CO-VM",
   "Mode": "Default",
@@ -983,6 +983,27 @@
       "OriginalItemSpec": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CO-VM.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\1_certificate.pdf",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "Certificates/1_certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5numkulknf",
+      "Integrity": "X59DKK7rsG/Qm4FExr6RI8dp/nL96spkwHC5pG9ZjbA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Certificates\\1_certificate.pdf"
+    },
+    {
       "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\11_certificate.pdf",
       "SourceId": "CO-VM",
       "SourceType": "Discovered",
@@ -997,8 +1018,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "thyz8ko1hz",
-      "Integrity": "YTFA7LeN/4s4ofeXwHjlEBj3bLOAzratcEVtIkPZo6Y=",
+      "Fingerprint": "r93d4csglc",
+      "Integrity": "MbrB3dM+6IiLmocWkOPrZr2OAfd/LMnyeMwLDpGQGu4=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Certificates\\11_certificate.pdf"
@@ -1060,11 +1081,116 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "jv1v0l5t3y",
-      "Integrity": "weAGOKTLUqvOX/0oP4Hd0jFs0kouULPPcL5e9xJbUJ4=",
+      "Fingerprint": "xzhta5r8i4",
+      "Integrity": "o9GqQMdmneG5q8STgjDsRWtRr/wa1ymTxEFdp6JOx9Y=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Certificates\\14_certificate.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\15_certificate.pdf",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "Certificates/15_certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1exymlym7s",
+      "Integrity": "icfMJLik2DAxa3zS6KvIlIt/0HVhzQaE7rT3s4SBHuw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Certificates\\15_certificate.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\2_certificate.pdf",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "Certificates/2_certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dbnh4bfoiy",
+      "Integrity": "SRAqkTfBSw9Edy5Mr1ueJ5c6opXJlkr7Q4jhovEpolM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Certificates\\2_certificate.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\3_certificate.pdf",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "Certificates/3_certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "k338ulzjyp",
+      "Integrity": "UPwVUahwdgeflHfPjZHtemg2HNocdk14ZxRkq3kOSMc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Certificates\\3_certificate.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\5_certificate.pdf",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "Certificates/5_certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "7g5bry0lwn",
+      "Integrity": "qQyzABwXG27irlLMzMMsxCs374R4DbS2ICJQ38si9Lk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Certificates\\5_certificate.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\6_certificate.pdf",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "Certificates/6_certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "za25hxfjoq",
+      "Integrity": "FeBYai5fZ8vTkAC/RtOO6j8rgXlnHUB8RjawUCK9aEs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Certificates\\6_certificate.pdf"
     },
     {
       "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\7_certificate.pdf",
@@ -1081,8 +1207,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "itcz7caajl",
-      "Integrity": "Wp2n0ExiKOHm3dPZwCmCQ1RBw+ksZrSRbnSHPpUoQ+U=",
+      "Fingerprint": "1696r47nvo",
+      "Integrity": "F9Es90ISie6AkM9Wx47b59BIIEWY1u/V254p7gVVcUU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Certificates\\7_certificate.pdf"
@@ -1149,6 +1275,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\dashboardbg.png"
+    },
+    {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\emblem.jfif",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "emblem#[.{fingerprint}]?.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "voyd1fqeqh",
+      "Integrity": "302AMFw1eNNUMfl7a3Q2D1jbwwFjkqDjGb17Wr42Wc0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\emblem.jfif"
     },
     {
       "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\favicon.ico",
@@ -2432,6 +2579,27 @@
       "OriginalItemSpec": "wwwroot\\logo.png"
     },
     {
+      "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\modiji.jfif",
+      "SourceId": "CO-VM",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\",
+      "BasePath": "_content/CO-VM",
+      "RelativePath": "modiji#[.{fingerprint}]?.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9c7c5m01yc",
+      "Integrity": "KS0zdA/hnAwCFp4gKJuEdTDt2yzGmxLotHxoo3rlgog=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\modiji.jfif"
+    },
+    {
       "Identity": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\newlogo.jpg",
       "SourceId": "CO-VM",
       "SourceType": "Discovered",
@@ -2497,6 +2665,88 @@
   ],
   "Endpoints": [
     {
+      "Route": "Certificates/1_certificate.5numkulknf.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\1_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209887"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"X59DKK7rsG/Qm4FExr6RI8dp/nL96spkwHC5pG9ZjbA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 07:21:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5numkulknf"
+        },
+        {
+          "Name": "label",
+          "Value": "Certificates/1_certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-X59DKK7rsG/Qm4FExr6RI8dp/nL96spkwHC5pG9ZjbA="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/1_certificate.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\1_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209887"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"X59DKK7rsG/Qm4FExr6RI8dp/nL96spkwHC5pG9ZjbA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 07:21:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-X59DKK7rsG/Qm4FExr6RI8dp/nL96spkwHC5pG9ZjbA="
+        }
+      ]
+    },
+    {
       "Route": "Certificates/11_certificate.pdf",
       "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\11_certificate.pdf",
       "Selectors": [],
@@ -2507,7 +2757,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "72181"
+          "Value": "210319"
         },
         {
           "Name": "Content-Type",
@@ -2515,11 +2765,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"YTFA7LeN/4s4ofeXwHjlEBj3bLOAzratcEVtIkPZo6Y=\""
+          "Value": "\"MbrB3dM+6IiLmocWkOPrZr2OAfd/LMnyeMwLDpGQGu4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 14:08:47 GMT"
+          "Value": "Thu, 26 Jun 2025 05:56:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2529,12 +2779,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-YTFA7LeN/4s4ofeXwHjlEBj3bLOAzratcEVtIkPZo6Y="
+          "Value": "sha256-MbrB3dM+6IiLmocWkOPrZr2OAfd/LMnyeMwLDpGQGu4="
         }
       ]
     },
     {
-      "Route": "Certificates/11_certificate.thyz8ko1hz.pdf",
+      "Route": "Certificates/11_certificate.r93d4csglc.pdf",
       "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\11_certificate.pdf",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2544,7 +2794,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "72181"
+          "Value": "210319"
         },
         {
           "Name": "Content-Type",
@@ -2552,11 +2802,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"YTFA7LeN/4s4ofeXwHjlEBj3bLOAzratcEVtIkPZo6Y=\""
+          "Value": "\"MbrB3dM+6IiLmocWkOPrZr2OAfd/LMnyeMwLDpGQGu4=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 14:08:47 GMT"
+          "Value": "Thu, 26 Jun 2025 05:56:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2566,7 +2816,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "thyz8ko1hz"
+          "Value": "r93d4csglc"
         },
         {
           "Name": "label",
@@ -2574,7 +2824,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-YTFA7LeN/4s4ofeXwHjlEBj3bLOAzratcEVtIkPZo6Y="
+          "Value": "sha256-MbrB3dM+6IiLmocWkOPrZr2OAfd/LMnyeMwLDpGQGu4="
         }
       ]
     },
@@ -2743,51 +2993,6 @@
       ]
     },
     {
-      "Route": "Certificates/14_certificate.jv1v0l5t3y.pdf",
-      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\14_certificate.pdf",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "72617"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/pdf"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"weAGOKTLUqvOX/0oP4Hd0jFs0kouULPPcL5e9xJbUJ4=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 14:08:47 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "jv1v0l5t3y"
-        },
-        {
-          "Name": "label",
-          "Value": "Certificates/14_certificate.pdf"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-weAGOKTLUqvOX/0oP4Hd0jFs0kouULPPcL5e9xJbUJ4="
-        }
-      ]
-    },
-    {
       "Route": "Certificates/14_certificate.pdf",
       "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\14_certificate.pdf",
       "Selectors": [],
@@ -2798,7 +3003,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "72617"
+          "Value": "210755"
         },
         {
           "Name": "Content-Type",
@@ -2806,11 +3011,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"weAGOKTLUqvOX/0oP4Hd0jFs0kouULPPcL5e9xJbUJ4=\""
+          "Value": "\"o9GqQMdmneG5q8STgjDsRWtRr/wa1ymTxEFdp6JOx9Y=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 14:08:47 GMT"
+          "Value": "Thu, 26 Jun 2025 05:56:43 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2820,13 +3025,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-weAGOKTLUqvOX/0oP4Hd0jFs0kouULPPcL5e9xJbUJ4="
+          "Value": "sha256-o9GqQMdmneG5q8STgjDsRWtRr/wa1ymTxEFdp6JOx9Y="
         }
       ]
     },
     {
-      "Route": "Certificates/7_certificate.itcz7caajl.pdf",
-      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\7_certificate.pdf",
+      "Route": "Certificates/14_certificate.xzhta5r8i4.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\14_certificate.pdf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2835,7 +3040,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "72604"
+          "Value": "210755"
         },
         {
           "Name": "Content-Type",
@@ -2843,11 +3048,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Wp2n0ExiKOHm3dPZwCmCQ1RBw+ksZrSRbnSHPpUoQ+U=\""
+          "Value": "\"o9GqQMdmneG5q8STgjDsRWtRr/wa1ymTxEFdp6JOx9Y=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 14:08:46 GMT"
+          "Value": "Thu, 26 Jun 2025 05:56:43 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2857,7 +3062,462 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "itcz7caajl"
+          "Value": "xzhta5r8i4"
+        },
+        {
+          "Name": "label",
+          "Value": "Certificates/14_certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-o9GqQMdmneG5q8STgjDsRWtRr/wa1ymTxEFdp6JOx9Y="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/15_certificate.1exymlym7s.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\15_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "210755"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"icfMJLik2DAxa3zS6KvIlIt/0HVhzQaE7rT3s4SBHuw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 05:56:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1exymlym7s"
+        },
+        {
+          "Name": "label",
+          "Value": "Certificates/15_certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-icfMJLik2DAxa3zS6KvIlIt/0HVhzQaE7rT3s4SBHuw="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/15_certificate.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\15_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "210755"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"icfMJLik2DAxa3zS6KvIlIt/0HVhzQaE7rT3s4SBHuw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 05:56:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-icfMJLik2DAxa3zS6KvIlIt/0HVhzQaE7rT3s4SBHuw="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/2_certificate.dbnh4bfoiy.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\2_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209824"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SRAqkTfBSw9Edy5Mr1ueJ5c6opXJlkr7Q4jhovEpolM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 10:58:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dbnh4bfoiy"
+        },
+        {
+          "Name": "label",
+          "Value": "Certificates/2_certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SRAqkTfBSw9Edy5Mr1ueJ5c6opXJlkr7Q4jhovEpolM="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/2_certificate.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\2_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209824"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SRAqkTfBSw9Edy5Mr1ueJ5c6opXJlkr7Q4jhovEpolM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 10:58:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SRAqkTfBSw9Edy5Mr1ueJ5c6opXJlkr7Q4jhovEpolM="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/3_certificate.k338ulzjyp.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\3_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "210262"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UPwVUahwdgeflHfPjZHtemg2HNocdk14ZxRkq3kOSMc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 09:56:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "k338ulzjyp"
+        },
+        {
+          "Name": "label",
+          "Value": "Certificates/3_certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UPwVUahwdgeflHfPjZHtemg2HNocdk14ZxRkq3kOSMc="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/3_certificate.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\3_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "210262"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UPwVUahwdgeflHfPjZHtemg2HNocdk14ZxRkq3kOSMc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 09:56:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UPwVUahwdgeflHfPjZHtemg2HNocdk14ZxRkq3kOSMc="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/5_certificate.7g5bry0lwn.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\5_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209457"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qQyzABwXG27irlLMzMMsxCs374R4DbS2ICJQ38si9Lk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 10:58:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7g5bry0lwn"
+        },
+        {
+          "Name": "label",
+          "Value": "Certificates/5_certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qQyzABwXG27irlLMzMMsxCs374R4DbS2ICJQ38si9Lk="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/5_certificate.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\5_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209457"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qQyzABwXG27irlLMzMMsxCs374R4DbS2ICJQ38si9Lk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 10:58:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qQyzABwXG27irlLMzMMsxCs374R4DbS2ICJQ38si9Lk="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/6_certificate.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\6_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209456"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"FeBYai5fZ8vTkAC/RtOO6j8rgXlnHUB8RjawUCK9aEs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 10:58:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-FeBYai5fZ8vTkAC/RtOO6j8rgXlnHUB8RjawUCK9aEs="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/6_certificate.za25hxfjoq.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\6_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "209456"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"FeBYai5fZ8vTkAC/RtOO6j8rgXlnHUB8RjawUCK9aEs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 10:58:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "za25hxfjoq"
+        },
+        {
+          "Name": "label",
+          "Value": "Certificates/6_certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-FeBYai5fZ8vTkAC/RtOO6j8rgXlnHUB8RjawUCK9aEs="
+        }
+      ]
+    },
+    {
+      "Route": "Certificates/7_certificate.1696r47nvo.pdf",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\7_certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "211146"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"F9Es90ISie6AkM9Wx47b59BIIEWY1u/V254p7gVVcUU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 05:56:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1696r47nvo"
         },
         {
           "Name": "label",
@@ -2865,7 +3525,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Wp2n0ExiKOHm3dPZwCmCQ1RBw+ksZrSRbnSHPpUoQ+U="
+          "Value": "sha256-F9Es90ISie6AkM9Wx47b59BIIEWY1u/V254p7gVVcUU="
         }
       ]
     },
@@ -2880,7 +3540,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "72604"
+          "Value": "211146"
         },
         {
           "Name": "Content-Type",
@@ -2888,11 +3548,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Wp2n0ExiKOHm3dPZwCmCQ1RBw+ksZrSRbnSHPpUoQ+U=\""
+          "Value": "\"F9Es90ISie6AkM9Wx47b59BIIEWY1u/V254p7gVVcUU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 14:08:46 GMT"
+          "Value": "Thu, 26 Jun 2025 05:56:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2902,7 +3562,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Wp2n0ExiKOHm3dPZwCmCQ1RBw+ksZrSRbnSHPpUoQ+U="
+          "Value": "sha256-F9Es90ISie6AkM9Wx47b59BIIEWY1u/V254p7gVVcUU="
         }
       ]
     },
@@ -2929,7 +3589,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 10:09:39 GMT"
+          "Value": "Thu, 26 Jun 2025 05:55:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2966,7 +3626,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 10:09:39 GMT"
+          "Value": "Thu, 26 Jun 2025 05:55:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3011,7 +3671,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 10:09:39 GMT"
+          "Value": "Thu, 26 Jun 2025 05:55:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3056,7 +3716,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 25 Jun 2025 10:09:39 GMT"
+          "Value": "Thu, 26 Jun 2025 05:55:24 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5937,6 +6597,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-gKvp3IIyZ99xmt3Egc5jbf56ZTxQ2tXr4Y+TZmX6xvQ="
+        }
+      ]
+    },
+    {
+      "Route": "emblem.jfif",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\emblem.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "107493"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"302AMFw1eNNUMfl7a3Q2D1jbwwFjkqDjGb17Wr42Wc0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 05:44:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-302AMFw1eNNUMfl7a3Q2D1jbwwFjkqDjGb17Wr42Wc0="
+        }
+      ]
+    },
+    {
+      "Route": "emblem.voyd1fqeqh.jfif",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\emblem.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "107493"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"302AMFw1eNNUMfl7a3Q2D1jbwwFjkqDjGb17Wr42Wc0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 05:44:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "voyd1fqeqh"
+        },
+        {
+          "Name": "label",
+          "Value": "emblem.jfif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-302AMFw1eNNUMfl7a3Q2D1jbwwFjkqDjGb17Wr42Wc0="
         }
       ]
     },
@@ -11923,6 +12665,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-1lxtkt3kMN+hYL/Lh55E4Vo1G3/6sPKKs+Zr48HQa+s="
+        }
+      ]
+    },
+    {
+      "Route": "modiji.9c7c5m01yc.jfif",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\modiji.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "30152"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KS0zdA/hnAwCFp4gKJuEdTDt2yzGmxLotHxoo3rlgog=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 05:44:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9c7c5m01yc"
+        },
+        {
+          "Name": "label",
+          "Value": "modiji.jfif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KS0zdA/hnAwCFp4gKJuEdTDt2yzGmxLotHxoo3rlgog="
+        }
+      ]
+    },
+    {
+      "Route": "modiji.jfif",
+      "AssetFile": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\modiji.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "30152"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KS0zdA/hnAwCFp4gKJuEdTDt2yzGmxLotHxoo3rlgog=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 26 Jun 2025 05:44:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KS0zdA/hnAwCFp4gKJuEdTDt2yzGmxLotHxoo3rlgog="
         }
       ]
     },

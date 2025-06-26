@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CO_VM.Models;
 
@@ -9,18 +10,30 @@ public partial class Vaccine
 {
     public int VaccineId { get; set; }
 
+
+    [Required(ErrorMessage = "Vaccine name is required")]
+    [StringLength(100, ErrorMessage = "Vaccine name cannot exceed 100 characters")]
     public string VaccineName { get; set; }
 
+    [Required(ErrorMessage = "Manufacturer is required")]
+    [StringLength(100, ErrorMessage = "Manufacturer cannot exceed 100 characters")]
     public string Manufacturer { get; set; }
 
+    [Required(ErrorMessage = "Doses required is mandatory")]
+    [Range(1, 10, ErrorMessage = "Doses required must be between 1 and 10")]
     public int? DosesRequired { get; set; }
 
+    [Required(ErrorMessage = "Stock is required")]
+    [Range(0, int.MaxValue, ErrorMessage = "Stock cannot be negative")]
     public int? Stock { get; set; }
 
     public byte[] Image { get; set; }
 
+    [Required(ErrorMessage = "Price is required")]
+    [Range(0, 10000, ErrorMessage = "Price must be between 0 and 10,000")]
     public decimal? Price { get; set; }
 
+    [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters")]
     public string Description { get; set; }
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();

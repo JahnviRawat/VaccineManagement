@@ -1,141 +1,144 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CO_VM</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CO_VM.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
-        .navbar-custom {
-            background: rgba(0, 0, 0, 0.7) !important;
-            box-shadow: 0 4px 20px 0 rgba(33, 150, 243, 0.15);
+        .sidebar-row {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #000;
+            background-color: #f8f9fa;
+            transition: background-color 0.2s ease;
         }
 
-            .navbar-custom .navbar-brand,
-            .navbar-custom .nav-link,
-            .navbar-custom .dropdown-toggle {
-                color: #fff !important;
-                font-weight: 600;
-                letter-spacing: 1px;
+            .sidebar-row:hover {
+                background-color: #e2e6ea;
             }
 
-                .navbar-custom .nav-link.active,
-                .navbar-custom .nav-link:focus,
-                .navbar-custom .nav-link:hover,
-                .navbar-custom .dropdown-item:hover {
-                    color: #1976d2 !important;
-                    background-color: #fff !important;
-                    border-radius: 0.5rem;
-                }
-
-            .navbar-custom .dropdown-menu {
-                background: rgba(0, 0, 0, 0.7);
-                border-radius: 0.5rem;
-                border: none;
-                box-shadow: 0 2px 8px rgba(33, 150, 243, 0.10);
+            .sidebar-row + .sidebar-row {
+                margin-top: 10px;
             }
-
-            .navbar-custom .dropdown-item {
-                color: #fff;
-                font-weight: 500;
-            }
-
-                .navbar-custom .dropdown-item.active,
-                .navbar-custom .dropdown-item:active {
-                    background-color: #1976d2;
-                    color: #fff;
-                }
-
-            .navbar-custom .navbar-brand img {
-                border: 2px solid #1976d2;
-                box-shadow: 0 2px 8px rgba(33, 150, 243, 0.10);
-            }
-
-        .welcome-admin {
-            margin-left: 350px;
-            color: white;
-            font-weight: bold;
-            text-shadow: 1px 1px 8px #e3f2fd;
-        }
-
-        media(max-width: 991.98px) {
-            .welcome-admin
-
-        {
-            margin-left: 0;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom fixed-top py-3">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("AdminHome", "Vaccine")">
-                <a class="navbar-brand d-flex align-items-center" href="@Url.Action("AdminHome", "Vaccine")">
-                    <span class="d-inline-block bg-primary rounded-circle p-2 me-2 shadow" style="width:44px; border:2px solid #fff;">
-                        <img src="~/Images/newlogo.jpg" alt="Avatar Logo" class="rounded-circle" style="width:40px; height:40px; object-fit:cover; display:block; margin:auto;">
-                    </span>
-                    <span class="fw-bold text-uppercase" style="font-size:1.5rem; letter-spacing:2px; color:white; text-shadow:1px 1px 8px #e3f2fd;">CO_VM</span>
-                </a>
+            <a class="navbar-brand" href="@Url.Action("Index", "Admin")">
+                <img src="~/newlogo.jpg" alt="Avatar Logo" style="width:50px;" class="rounded-pill">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar" aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar"
+                    aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a href="@Url.Action("Index", "Vaccine")" class="nav-link px-3">Home</a>
+                        <a href="@Url.Action("Index", "Admin")" class="nav-link text-white">Home</a>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle px-3" id="usersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manage Users</a>
-                        <ul class="dropdown-menu" aria-labelledby="usersDropdown">
-                            <li><a href="@Url.Action("AddUser","Admin")" class="dropdown-item">Add</a></li>
-                            <li><a href="@Url.Action("UpdateUser","Admin")" class="dropdown-item">Update</a></li>
-                            <li><a href="@Url.Action("DeleteUser","Admin")" class="dropdown-item">Delete</a></li>
-                            <li><a href="@Url.Action("ViewUser","Admin")" class="dropdown-item">View</a></li>
-                            <li><a href="@Url.Action("Status", "Admin")" class="dropdown-item">Update Status</a> </li>
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="manageUsersDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Manage Users
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="manageUsersDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("AddUser","Admin")">Add</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("UpdateUser","Admin")">Update</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("DeleteUser","Admin")">Delete</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("ViewUser","Admin")">View</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Status", "Certificate")">Update Status</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle px-3" id="vaccinesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manage Vaccines</a>
-                        <ul class="dropdown-menu" aria-labelledby="vaccinesDropdown">
-                            <li><a href="@Url.Action("AddVaccine","Admin")" class="dropdown-item">Add</a></li>
-                            <li><a href="@Url.Action("UpdateVaccine","Admin")" class="dropdown-item">Update</a></li>
-                            <li><a href="@Url.Action("DeleteVaccine","Admin")" class="dropdown-item">Delete</a></li>
-                            <li><a href="@Url.Action("ViewVaccine","Admin")" class="dropdown-item">View</a></li>
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="manageVaccinesDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Manage Vaccines
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="manageVaccinesDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("AddVaccine","Admin")">Add</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("UpdateVaccine","Admin")">Update</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("DeleteVaccine","Admin")">Delete</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("ViewVaccine","Admin")">View</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle px-3" id="vaccinesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Certificates</a>
-                        <ul class="dropdown-menu" aria-labelledby="vaccinesDropdown">
-                            <li><a href="@Url.Action("GenerateAllCertificates","Certificate")" class="dropdown-item">Add Certificate</a></li>
-                            <li><a href="@Url.Action("Certificate","Certificate")" class="dropdown-item">Update Certificate</a></li>
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="certificatesDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Certificates
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="certificatesDropdown">
+                            <li><a class="dropdown-item" href="@Url.Action("GenerateAllCertificates","Certificate")">Add Certificate</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Certificate","Certificate")">Update Certificate</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item" style="margin-left:1000px">
-                        <div class="collapse navbar-collapse" id="mynavbar">
-                            <a href="@Url.Action("Logout", "Vaccine")" class="nav-link px-3 text-white fw-bold">Logout</a>
-                        </div>
+                </ul>
+
+                <!-- Right Icon for Offcanvas -->
+                <button class="btn border-0 ms-auto" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Right Sidebar -->
+    <div class="offcanvas offcanvas-end" style="background-color:lightgray" tabindex="-1"
+         id="adminSidebar" aria-labelledby="adminSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 id="adminSidebarLabel">Admin Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="d-grid gap-2">
+                <ul class="nav flex-column">
+                    @* <li class="nav-item">
+                        <a href="@Url.Action("AdminHome", "Vaccine")" class="sidebar-row">Dashboard</a>
+                    </li><br /> *@
+                    <li class="nav-item">
+                        <a href="@Url.Action("Logout", "Vaccine")" class="sidebar-row">Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav>
+    </div>
+
     <div style="margin-top: 100px;">
         @RenderBody()
     </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

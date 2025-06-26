@@ -197,6 +197,30 @@
       "PackagePath": "staticwebassets\\Certificates\\14_certificate.pdf"
     },
     {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\15_certificate.pdf",
+      "PackagePath": "staticwebassets\\Certificates\\15_certificate.pdf"
+    },
+    {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\1_certificate.pdf",
+      "PackagePath": "staticwebassets\\Certificates\\1_certificate.pdf"
+    },
+    {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\2_certificate.pdf",
+      "PackagePath": "staticwebassets\\Certificates\\2_certificate.pdf"
+    },
+    {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\3_certificate.pdf",
+      "PackagePath": "staticwebassets\\Certificates\\3_certificate.pdf"
+    },
+    {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\5_certificate.pdf",
+      "PackagePath": "staticwebassets\\Certificates\\5_certificate.pdf"
+    },
+    {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\6_certificate.pdf",
+      "PackagePath": "staticwebassets\\Certificates\\6_certificate.pdf"
+    },
+    {
       "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\Certificates\\7_certificate.pdf",
       "PackagePath": "staticwebassets\\Certificates\\7_certificate.pdf"
     },
@@ -211,6 +235,10 @@
     {
       "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\dashboardbg.png",
       "PackagePath": "staticwebassets\\dashboardbg.png"
+    },
+    {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\emblem.jfif",
+      "PackagePath": "staticwebassets\\emblem.jfif"
     },
     {
       "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\favicon.ico",
@@ -455,6 +483,10 @@
     {
       "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\logo.png",
       "PackagePath": "staticwebassets\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\modiji.jfif",
+      "PackagePath": "staticwebassets\\modiji.jfif"
     },
     {
       "Id": "C:\\Users\\jahnvi.rawat\\Source\\Repos\\CO-VM\\CO-VM\\wwwroot\\newlogo.jpg",

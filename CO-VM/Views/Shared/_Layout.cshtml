@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -72,20 +73,25 @@
 
             </div>
 
-             <form class="d-flex"> 
+            <form class="d-flex">
 
-            @*     <input class="form-control me-2" type="text" placeholder="Search"> *@
+                @*     <input class="form-control me-2" type="text" placeholder="Search"> *@
 
-            @*     <button class="btn btn-primary mx-3" type="button">Search</button> *@
+                @*     <button class="btn btn-primary mx-3" type="button">Search</button> *@
 
-                <!--3bar icon setup--> 
+                <!--3bar icon setup-->
+                @{
+                    var userId = Context.Session.GetString("UserId");
+                }
+                @if (!string.IsNullOrEmpty(userId))
+                {
+                    <button class="btn border-0 ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="rightSidebar">
+                        <span class="navbar-toggler-icon"></span>
 
-               <button class="btn border-0 ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#rightSidebar" aria-controls="rightSidebar"> 
-                  <span class="navbar-toggler-icon"></span> 
+                    </button>
+                }
 
-            </button> 
-
-             </form> 
+            </form>
 
         </div>
 
@@ -142,7 +148,7 @@
                     </li>
 
                     <br />
-                  
+
                 </ul>
 
             </div>

@@ -1,184 +1,267 @@
 ﻿@model CO_VM.Models.User
 
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-papNMHlvK3DoypdtVZtvpJvM33YxP4iTXqU2Gq3CUM2zOvR+ACF7JpPpR8gE3WYNo4mFSLU0J08TxR+BXTf1dA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
     body {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #e3f0ff 0%, #b6d0f7 50%, #f8fbff 100%);
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(120deg, #eaf6ff, #cfe2f3);
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .split-screen {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        padding-top: 80px;
+        height: 100vh;
     }
-    .register-container {
-        min-height: 100vh;
+
+    .form-half {
+        width: 50%;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        background: linear-gradient(145deg, #f0f7ff, #dceeff);
+        padding: 20px;
+        overflow: hidden;
     }
-    .card {
-        border-radius: 1.5rem;
-        border: none;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        background: rgba(255,255,255,0.95);
-        width: 1200px;
-        max-width: 100%;
+
+    .register-card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 420px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 30px;
+        scrollbar-width: thin;
     }
-    .card-header {
-        border-radius: 1.5rem 1.5rem 0 0;
-        background: linear-gradient(90deg, #1976d2 0%, #64b5f6 100%);
-        color: #fff;
-        text-align: center;
-        padding: 2rem 1rem 1rem 1rem;
+
+        .register-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .register-card::-webkit-scrollbar-thumb {
+            background: #cfd8dc;
+            border-radius: 4px;
+        }
+
+        .register-card h3 {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1976d2;
+        }
+
+    .form-label {
+        font-weight: 500;
+        color: #2d3a4b;
     }
-    .card-body {
-        padding: 2rem;
+
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        border: 1px solid #cfd8dc;
+        padding: 10px 12px;
+        background-color: #f9fbff;
     }
-    .form-label, label {
-        font-weight: 600;
-        color: #1976d2;
-    }
-    .form-control, .form-select {
-        border-radius: 0.75rem;
-        border: 1px solid #b6d0f7;
-        background: #f8fbff;
-        transition: border-color 0.2s;
-    }
-    .form-control:focus, .form-select:focus {
-        border-color: #1976d2;
-        box-shadow: 0 0 0 0.1rem #1976d233;
-    }
-    .btn-success {
-        background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
-        border: none;
-        border-radius: 0.75rem;
-        font-weight: 600;
-        font-size: 1.1rem;
-        padding: 0.75rem;
-        transition: background 0.2s;
-    }
-    .btn-success:hover {
-        background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
-    }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 0 0.1rem #1976d255;
+        }
+
     .form-check-label {
         color: #1976d2;
         font-weight: 500;
     }
-    .alert-info {
-        border-radius: 0.75rem;
+
+    .btn-register {
+        background: #1976d2;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        transition: background 0.2s ease;
     }
-    media (max-width: 991.98px) {
-        .row {
-            flex-direction: column;
+
+        .btn-register:hover {
+            background: #125ea4;
         }
+
+    .info-half {
+        width: 50%;
+        background: url('/vaccine-info.webp') no-repeat center center;
+        background-size: cover;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px;
+        color: #ffffff;
+        background-blend-mode: overlay;
+        background-color: rgb(9 87 149 / 60%)
+    }
+
+        .info-half h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-shadow: 1px 1px 4px #00000044;
+        }
+
+        .info-half ul {
+            list-style: disc;
+            padding-left: 20px;
+            font-size: 18px;
+        }
+
+    .text-danger {
+        font-size: 14px;
+    }
+
+    media (max-width: 991px) {
+        .split-screen
+
+    {
+        flex-direction: column;
+    }
+
+    .form-half,
+    .info-half {
+        width: 100%;
+        height: auto;
+    }
+
+    .info-half {
+        padding: 40px 20px;
+    }
+
+    .register-card {
+        max-height: none;
+    }
+
     }
 </style>
 
-<div class="register-container">
-    <div class="col-md-8 col-lg-6">
-        <div class="card shadow">
-            <div class="card-header">
-                <h3 class="mb-0">Register</h3>
-            </div>
-            <div class="card-body">
-                <form method="post">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.FullName, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.FullName, new { @class = "form-control", placeholder = "Enter FullName" })
-                                @Html.ValidationMessageFor(c => c.FullName, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.Username, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.Username, new { @class = "form-control", placeholder = "Enter Username" })
-                                @Html.ValidationMessageFor(c => c.Username, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Gender</label>
-                                <div class="d-flex gap-4">
-                                    <div class="form-check">
-                                        @Html.RadioButtonFor(c => c.Gender, "Male", new { @class = "form-check-input", id = "genderMale" })
-                                        @Html.Label("Male", "Male", new { @class = "form-check-label", @for = "genderMale" })
-                                    </div>
-                                    <div class="form-check">
-                                        @Html.RadioButtonFor(c => c.Gender, "Female", new { @class = "form-check-input", id = "genderFemale" })
-                                        @Html.Label("Female", "Female", new { @class = "form-check-label", @for = "genderFemale" })
-                                    </div>
-                                    <div class="form-check">
-                                        @Html.RadioButtonFor(c => c.Gender, "Other", new { @class = "form-check-input", id = "genderOther" })
-                                        @Html.Label("Other", "Other", new { @class = "form-check-label", @for = "genderOther" })
-                                    </div>
-                                </div>
-                                @Html.ValidationMessageFor(c => c.Gender, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.Dob, "Date of Birth", new { @class = "form-label" })
-                                <input asp-for="Dob" type="date" class="form-control" />
-                                @Html.ValidationMessageFor(c => c.Dob, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.Email, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", placeholder = "Enter Email" })
-                                @Html.ValidationMessageFor(c => c.Email, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.Password, new { @class = "form-label" })
-                                @Html.PasswordFor(c => c.Password, new { @class = "form-control", placeholder = "Enter Password" })
-                                @Html.ValidationMessageFor(c => c.Password, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                <label for="ConfirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" name="ConfirmPassword" id="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-                                @Html.ValidationMessage("ConfirmPassword", new { @class = "text-danger" })
-                            </div>
-
+<div class="split-screen">
+    <div class="form-half">
+        <div class="register-card">
+            <h4><i class="fa-solid fa-user-shield me-2"></i>Register</h4>
+            <form method="post">
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.FullName, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.FullName, new { @class = "form-control", placeholder = "Enter Full Name" })
+                    @Html.ValidationMessageFor(c => c.FullName, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.Username, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.Username, new { @class = "form-control", placeholder = "Enter Username" })
+                    @Html.ValidationMessageFor(c => c.Username, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Gender</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            @Html.RadioButtonFor(c => c.Gender, "Male", new { @class = "form-check-input", id = "genderMale" })
+                            <label class="form-check-label" for="genderMale">Male</label>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.AadhaarNo, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.AadhaarNo, new { @class = "form-control", placeholder = "Enter AadhaarNo" })
-                                @Html.ValidationMessageFor(c => c.AadhaarNo, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.PhoneNumber, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.PhoneNumber, new { @class = "form-control", placeholder = "Enter PhoneNumber" })
-                                @Html.ValidationMessageFor(c => c.PhoneNumber, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.Address, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.Address, new { @class = "form-control", placeholder = "Enter Address" })
-                                @Html.ValidationMessageFor(c => c.Address, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.City, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.City, new { @class = "form-control", placeholder = "Enter City" })
-                                @Html.ValidationMessageFor(c => c.City, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.State, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.State, new { @class = "form-control", placeholder = "Enter State" })
-                                @Html.ValidationMessageFor(c => c.State, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Security Question</label>
-                                <select name="SecurityQuestion" class="form-select">
-                                    <option>Which is First school</option>
-                                    <option>Which is Your Birth Place</option>
-                                    <option>Which is your favourite sport</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                @Html.LabelFor(c => c.SecurityAnswer, new { @class = "form-label" })
-                                @Html.TextBoxFor(c => c.SecurityAnswer, new { @class = "form-control", placeholder = "Enter SecurityAnswer" })
-                            </div>
+                        <div class="form-check">
+                            @Html.RadioButtonFor(c => c.Gender, "Female", new { @class = "form-check-input", id = "genderFemale" })
+                            <label class="form-check-label" for="genderFemale">Female</label>
+                        </div>
+                        <div class="form-check">
+                            @Html.RadioButtonFor(c => c.Gender, "Other", new { @class = "form-check-input", id = "genderOther" })
+                            <label class="form-check-label" for="genderOther">Other</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success w-100">Register</button>
-                    @if (ViewBag.data != null)
-                    {
-                        <div class="alert alert-info mt-3">@ViewBag.data</div>
-                    }
-                </form>
-            </div>
+                    @Html.ValidationMessageFor(c => c.Gender, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.Dob, "Date of Birth", new { @class = "form-label" })
+                    <input asp-for="Dob" type="date" class="form-control" />
+                    @Html.ValidationMessageFor(c => c.Dob, "", new { @class = "text-danger" })
+                    <span style="color:blue; font-size:small">DOB should be less than today</span>
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.Email, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.Email, new { @class = "form-control", placeholder = "Enter Email" })
+                    @Html.ValidationMessageFor(c => c.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.Password, new { @class = "form-label" })
+                    @Html.PasswordFor(c => c.Password, new { @class = "form-control", placeholder = "Enter Password" })
+                    @Html.ValidationMessageFor(c => c.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" name="ConfirmPassword" id="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                    @Html.ValidationMessage("ConfirmPassword", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.AadhaarNo, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.AadhaarNo, new { @class = "form-control", placeholder = "Enter Aadhaar Number" })
+                    @Html.ValidationMessageFor(c => c.AadhaarNo, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.PhoneNumber, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.PhoneNumber, new { @class = "form-control", placeholder = "Enter Phone Number" })
+                    @Html.ValidationMessageFor(c => c.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.Address, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.Address, new { @class = "form-control", placeholder = "Enter Address" })
+                    @Html.ValidationMessageFor(c => c.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.City, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.City, new { @class = "form-control", placeholder = "Enter City" })
+                    @Html.ValidationMessageFor(c => c.City, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.State, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.State, new { @class = "form-control", placeholder = "Enter State" })
+                    @Html.ValidationMessageFor(c => c.State, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Security Question</label>
+                    <select name="SecurityQuestion" class="form-select">
+                        <option>Which is First school</option>
+                        <option>Which is Your Birth Place</option>
+                        <option>Which is your favourite sport</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(c => c.SecurityAnswer, new { @class = "form-label" })
+                    @Html.TextBoxFor(c => c.SecurityAnswer, new { @class = "form-control", placeholder = "Enter Answer" })
+                </div>
+
+                <button type="submit" class="btn btn-register">Register</button>
+
+                @if (ViewBag.data != null)
+                {
+                    <div class="alert alert-info mt-3">@ViewBag.data</div>
+                }
+            </form>
         </div>
+    </div>
+
+    <div class="info-half">
+        <h2>Welcome to Vaccine Portal</h2>
+        <ul>
+            <li>Manage your vaccinations securely</li>
+            <li>Book and track appointments</li>
+            <li>Download vaccination certificates</li>
+            <li>Stay informed with latest advisories</li>
+        </ul>
     </div>
 </div>

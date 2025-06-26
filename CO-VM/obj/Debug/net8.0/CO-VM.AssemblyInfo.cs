@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CO-VM")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8cb0cab2e03b79b2af00b7d23cf9302e88001fd7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09dd392de527f9c4248e6469f177c1b9a50882f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("CO-VM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CO-VM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

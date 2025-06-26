@@ -74,6 +74,7 @@ namespace CO_VM.Controllers
 
         }
 
+
         // Show the Add Family Member form
         [HttpGet]
         public IActionResult Family()
@@ -345,11 +346,11 @@ namespace CO_VM.Controllers
                 {
                     HttpContext.Session.SetString("UserId", user.UserId.ToString());
                     ViewBag.a = "Login Successful";
-                    return RedirectToAction("Vaccines");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    return RedirectToAction("Register");
+                    return RedirectToAction("Login");
                 }
             }
 
@@ -562,6 +563,13 @@ namespace CO_VM.Controllers
                     ModelState.AddModelError("ConfirmPassword", "Password and Confirm Password do not match.");
                     return View(u);
                 }
+                //validation for dob
+                if (u.Dob >= DateOnly.FromDateTime(DateTime.Today))
+                {
+                    ModelState.AddModelError("Dob", "Date of Birth must be less than today's date.");
+                    return View(u);
+                }
+
 
                 u.SecurityQuestion = securityQuestion;
                 u.Password = System.Text.Encoding.UTF8.GetBytes(password);
@@ -703,7 +711,6 @@ namespace CO_VM.Controllers
                 var vaccine1 = ob.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
                 if (vaccine1 == null || !vaccine1.Stock.HasValue || vaccine1.Stock.Value <= 0)
                 {
-                    // Repopulate dropdowns and show error
                     ViewBag.Family = ob.Families.FirstOrDefault(f => f.FamilyId == familyId);
                     ViewBag.Vaccines = ob.Vaccines.ToList();
                     ViewBag.Centres = ob.Centres.ToList();
@@ -715,7 +722,8 @@ namespace CO_VM.Controllers
                     s.VaccineId == vaccineId &&
                     s.CentreId == centreId &&
                     s.SlotDate == DateOnly.FromDateTime(slotDate) &&
-                    s.SlotTime == TimeOnly.FromTimeSpan(slotTime));
+                    s.SlotTime == TimeOnly.FromTimeSpan(slotTime) &&
+                    s.FamilyId == familyId);
 
                 if (slot == null)
                 {
@@ -729,10 +737,8 @@ namespace CO_VM.Controllers
                         FamilyId = familyId
                     };
                     ob.Slots.Add(slot);
-                    ob.SaveChangesAsync();
+                    ob.SaveChanges();
                 }
-
-
 
                 var booking = ob.Bookings
                     .Where(b => b.FamilyId == familyId && b.Status == "Cancelled")
@@ -744,6 +750,7 @@ namespace CO_VM.Controllers
                     booking.SlotId = slot.SlotId;
                     booking.VaccineId = vaccineId;
                     booking.BookingDate = DateTime.Now;
+                    booking.VaccinatedOn = DateOnly.FromDateTime(slotDate);
                     booking.Status = "Booked";
                     booking.PaymentMode = "Online";
                 }
@@ -766,19 +773,21 @@ namespace CO_VM.Controllers
                 if (vaccine != null && vaccine.Stock.HasValue && vaccine.Stock.Value > 0)
                 {
                     vaccine.Stock -= 1;
-                    ob.SaveChangesAsync();
                 }
 
-                ob.SaveChangesAsync();
+                ob.SaveChanges();
                 return RedirectToAction("UserDashboard");
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred in Booking Slot.");
-                ViewBag.data = "Registration Failed";
-                return View("UserDashboard");
+                ViewBag.data = "Booking failed.";
+                // Repopulate dropdowns for the view
+                ViewBag.Family = ob.Families.FirstOrDefault(f => f.FamilyId == familyId);
+                ViewBag.Vaccines = ob.Vaccines.ToList();
+                ViewBag.Centres = ob.Centres.ToList();
+                return View();
             }
-
         }
 
         [HttpGet]
@@ -822,7 +831,23 @@ namespace CO_VM.Controllers
         {
             try
             {
-                int userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+                string userIdStr = HttpContext.Session.GetString("UserId");
+                if (string.IsNullOrEmpty(userIdStr))
+                {
+                    return RedirectToAction("Login");
+                }
+                int userId = Convert.ToInt32(userIdStr);
+
+                var vaccine = ob.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
+                if (vaccine == null || !vaccine.Stock.HasValue || vaccine.Stock.Value <= 0)
+                {
+                    ViewBag.Error = "Selected vaccine is out of stock.";
+                    ViewBag.User = ob.Users.FirstOrDefault(u => u.UserId == userId);
+                    ViewBag.Vaccines = ob.Vaccines.ToList();
+                    ViewBag.Centres = ob.Centres.ToList();
+                    ViewBag.SelectedVaccineId = vaccineId;
+                    return View();
+                }
 
                 var slot = ob.Slots.FirstOrDefault(s =>
                     s.VaccineId == vaccineId &&
@@ -844,10 +869,9 @@ namespace CO_VM.Controllers
                         FamilyId = null
                     };
                     ob.Slots.Add(slot);
-                    ob.SaveChangesAsync();
+                    ob.SaveChanges();
                 }
 
-                // Try to find a cancelled booking for the user
                 var booking = ob.Bookings
                     .Where(b => b.UserId == userId && b.FamilyId == null && b.Status == "Cancelled")
                     .OrderByDescending(b => b.BookingDate)
@@ -855,7 +879,6 @@ namespace CO_VM.Controllers
 
                 if (booking != null)
                 {
-                    // Update the cancelled booking
                     booking.SlotId = slot.SlotId;
                     booking.VaccineId = vaccineId;
                     booking.BookingDate = DateTime.Now;
@@ -864,7 +887,6 @@ namespace CO_VM.Controllers
                 }
                 else
                 {
-                    // Create a new booking
                     booking = new Booking
                     {
                         UserId = userId,
@@ -878,24 +900,20 @@ namespace CO_VM.Controllers
                     ob.Bookings.Add(booking);
                 }
 
-                var vaccine = ob.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
-                if (vaccine != null && vaccine.Stock.HasValue && vaccine.Stock.Value > 0)
+                if (vaccine.Stock.HasValue && vaccine.Stock.Value > 0)
                 {
                     vaccine.Stock -= 1;
-                    ob.SaveChangesAsync();
                 }
-
-                ob.SaveChangesAsync();
+                ob.SaveChanges();
 
                 return RedirectToAction("UserDashboard");
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred in Booking Slot.");
-                ViewBag.data = "Registration Failed";
-                return View("UserDashboard");
+                ViewBag.data = "Booking failed.";
+                return View();
             }
-
         }
 
 

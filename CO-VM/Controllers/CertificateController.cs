@@ -54,6 +54,7 @@ namespace CO_VM.Controllers
             int top = 40;
             // Emblem
             var emblemPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "emblem.jfif");
+        
             if (System.IO.File.Exists(emblemPath))
             {
                 XImage emblem = XImage.FromFile(emblemPath);
@@ -101,10 +102,10 @@ namespace CO_VM.Controllers
                 new XRect(leftMarginforvac, top, page.Width - leftMarginforvac, 25),
                 XStringFormats.TopLeft);
             top += 35;
-            gfx.DrawString(" Vaccine        :       COVISHIELD", regularFont, XBrushes.Black, 100, top); top += 25;
+            gfx.DrawString($" Vaccine        :       {vaccines.VaccineName}", regularFont, XBrushes.Black, 100, top); top += 25;
             gfx.DrawString($" Manufacturer   :       {vaccines.Manufacturer}", regularFont, XBrushes.Black, 100, top); top += 25;
             gfx.DrawString($" Dose Number    :    {booking.DoseNumber}", regularFont, XBrushes.Black, 100, top); top += 25;
-            gfx.DrawString(" Isseur Name    :       Jhanvi Rawat", regularFont, XBrushes.Black, 100, top); top += 40;
+            gfx.DrawString(" Issuer Name    :       Government Of India", regularFont, XBrushes.Black, 100, top); top += 40;
             var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "modiji.jfif");
             if (System.IO.File.Exists(imagePath))
             {
@@ -203,7 +204,7 @@ namespace CO_VM.Controllers
         {
 
 
-            var certificate = vm.VaccineCertificates.FirstOrDefault(c => c.BookId == bookId);
+            var certificate = vm.VaccineCertificates.FirstOrDefault(c => c.BookId == bookId );
 
             if (certificate == null || certificate.Certificate == null)
 
@@ -241,7 +242,7 @@ namespace CO_VM.Controllers
 
             var Booking = (from t in vm.Bookings
 
-                           where t.UserId == user_bookid
+                           where t.UserId == user_bookid && t.Status=="Completed"
                            select t).ToList();
             if (Booking == null)
             {

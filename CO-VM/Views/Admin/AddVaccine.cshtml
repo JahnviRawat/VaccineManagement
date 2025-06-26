@@ -63,30 +63,37 @@
                 <div class="mb-3">
                     <label class="form-label">Vaccine Name:</label>
                     <input type="text" asp-for="VaccineName" class="form-control" />
+					<span asp-validation-for="VaccineName" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Manufacturer Name:</label>
                     <input type="text" asp-for="Manufacturer" class="form-control" />
+                    <span asp-validation-for="Manufacturer" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Dosage of the Vaccine:</label>
                     <input type="number" asp-for="DosesRequired" class="form-control" />
+                    <span asp-validation-for="DosesRequired" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Available Stock:</label>
                     <input type="number" asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Upload the Image:</label>
                     <input type="file" name="imagefile" class="form-control" accept="image/*" required />
+                    <span style="color:blue; font-size:small">Supported types .jpg, .png</span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Price:</label>
                     <input type="number" asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Description:</label>
                     <input type="text" asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <input type="submit" value="Add" class="btn btn-info" />
             </form>

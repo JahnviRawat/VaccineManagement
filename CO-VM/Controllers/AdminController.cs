@@ -193,7 +193,7 @@ namespace CO_VM.Controllers
                     {
                         vm.Add(user);
                         vm.SaveChanges();
-                        return RedirectToAction("Vaccines");
+                        return RedirectToAction("Index");
                     }
                     catch (Exception ex)
                     {
@@ -270,6 +270,9 @@ namespace CO_VM.Controllers
                     if (!string.IsNullOrWhiteSpace(upduse.AadhaarNo))
                         user.AadhaarNo = upduse.AadhaarNo;
 
+                    // Update other fields if needed
+                    // Mark entity as modified
+                    vm.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     vm.SaveChanges();
                     ViewBag.Success = "User updated successfully";
                 }
@@ -281,7 +284,6 @@ namespace CO_VM.Controllers
                 ViewBag.CaptchaError = "Update User failed.";
                 return View();
             }
-
         }
 
         [HttpGet]
@@ -392,7 +394,7 @@ namespace CO_VM.Controllers
                 vc.Description = v.Description;
                 vm.Add(vc);
                 vm.SaveChanges();
-                return RedirectToAction("AdminHome");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

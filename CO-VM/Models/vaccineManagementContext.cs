@@ -47,11 +47,11 @@ public partial class vaccineManagementContext : DbContext
     {
         modelBuilder.Entity<Admin>(entity =>
         {
-            entity.HasKey(e => e.AdminId).HasName("PK__Admin__719FE488C4A3B69B");
+            entity.HasKey(e => e.AdminId).HasName("PK__Admin__719FE4882760D4E4");
 
             entity.ToTable("Admin");
 
-            entity.HasIndex(e => e.Username, "UQ__Admin__536C85E4B791D256").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Admin__536C85E4E28E2DD6").IsUnique();
 
             entity.Property(e => e.AdminId).ValueGeneratedNever();
             entity.Property(e => e.AdminName)
@@ -69,7 +69,7 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.BookId).HasName("PK__Bookings__3DE0C227F2B69FFC");
+            entity.HasKey(e => e.BookId).HasName("PK__Bookings__3DE0C227877253E6");
 
             entity.Property(e => e.BookId).HasColumnName("BookID");
             entity.Property(e => e.BookingDate)
@@ -110,7 +110,7 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<Centre>(entity =>
         {
-            entity.HasKey(e => e.CentreId).HasName("PK__Centres__A2E8F5FAB31DE283");
+            entity.HasKey(e => e.CentreId).HasName("PK__Centres__A2E8F5FA143849F5");
 
             entity.Property(e => e.CentreId).HasColumnName("CentreID");
             entity.Property(e => e.Address)
@@ -137,11 +137,11 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<Family>(entity =>
         {
-            entity.HasKey(e => e.FamilyId).HasName("PK__Family__41D82F4BF856D4B5");
+            entity.HasKey(e => e.FamilyId).HasName("PK__Family__41D82F4B3955603D");
 
             entity.ToTable("Family");
 
-            entity.HasIndex(e => e.AadhaarNo, "UQ__Family__6F3B29F66F6ED6FF").IsUnique();
+            entity.HasIndex(e => e.AadhaarNo, "UQ__Family__6F3B29F637BFD488").IsUnique();
 
             entity.Property(e => e.FamilyId).HasColumnName("FamilyID");
             entity.Property(e => e.AadhaarNo)
@@ -171,9 +171,9 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<Relation>(entity =>
         {
-            entity.HasKey(e => e.RelationId).HasName("PK__Relation__E2DA1695EDAF63EE");
+            entity.HasKey(e => e.RelationId).HasName("PK__Relation__E2DA1695A5E3413C");
 
-            entity.HasIndex(e => e.RelationType, "UQ__Relation__836CC666742B04CD").IsUnique();
+            entity.HasIndex(e => e.RelationType, "UQ__Relation__836CC6660EE68DEE").IsUnique();
 
             entity.Property(e => e.RelationId).HasColumnName("RelationID");
             entity.Property(e => e.RelationType)
@@ -184,7 +184,7 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<Slot>(entity =>
         {
-            entity.HasKey(e => e.SlotId).HasName("PK__Slots__0A124A4F8B9DF5B9");
+            entity.HasKey(e => e.SlotId).HasName("PK__Slots__0A124A4F586122C4");
 
             entity.Property(e => e.SlotId).HasColumnName("SlotID");
             entity.Property(e => e.CentreId).HasColumnName("CentreID");
@@ -212,11 +212,11 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC9C69E1F5");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC1674D2A9");
 
-            entity.HasIndex(e => e.Username, "UQ__Users__536C85E421305566").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__536C85E4A91ED4F4").IsUnique();
 
-            entity.HasIndex(e => e.AadhaarNo, "UQ__Users__6F3B29F6E278ACCC").IsUnique();
+            entity.HasIndex(e => e.AadhaarNo, "UQ__Users__6F3B29F61186BE93").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.AadhaarNo)
@@ -260,7 +260,7 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<VaccinationFeedback>(entity =>
         {
-            entity.HasKey(e => e.FeedbackId).HasName("PK__Vaccinat__6A4BEDD63879BD25");
+            entity.HasKey(e => e.FeedbackId).HasName("PK__Vaccinat__6A4BEDD66D07FCEA");
 
             entity.ToTable("VaccinationFeedback");
 
@@ -294,7 +294,7 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<Vaccine>(entity =>
         {
-            entity.HasKey(e => e.VaccineId).HasName("PK__Vaccines__45DC68E955D14FFD");
+            entity.HasKey(e => e.VaccineId).HasName("PK__Vaccines__45DC68E938395A97");
 
             entity.Property(e => e.VaccineId).HasColumnName("VaccineID");
             entity.Property(e => e.Description).HasColumnType("text");
@@ -312,7 +312,7 @@ public partial class vaccineManagementContext : DbContext
 
         modelBuilder.Entity<VaccineCentre>(entity =>
         {
-            entity.HasKey(e => new { e.VaccineId, e.CentreId }).HasName("PK__VaccineC__FFF2E7B6F7A43965");
+            entity.HasKey(e => new { e.VaccineId, e.CentreId }).HasName("PK__VaccineC__FFF2E7B6A8D0C3AC");
 
             entity.Property(e => e.VaccineId).HasColumnName("VaccineID");
             entity.Property(e => e.CentreId).HasColumnName("CentreID");
@@ -323,17 +323,17 @@ public partial class vaccineManagementContext : DbContext
             entity.HasOne(d => d.Centre).WithMany(p => p.VaccineCentres)
                 .HasForeignKey(d => d.CentreId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__VaccineCe__Centr__2A164134");
+                .HasConstraintName("FK__VaccineCe__Centr__73BA3083");
 
             entity.HasOne(d => d.Vaccine).WithMany(p => p.VaccineCentres)
                 .HasForeignKey(d => d.VaccineId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__VaccineCe__Vacci__29221CFB");
+                .HasConstraintName("FK__VaccineCe__Vacci__72C60C4A");
         });
 
         modelBuilder.Entity<VaccineCertificate>(entity =>
         {
-            entity.HasKey(e => e.CertificateId).HasName("PK__VaccineC__BBF8A7E107AB835A");
+            entity.HasKey(e => e.CertificateId).HasName("PK__VaccineC__BBF8A7E1E44A2DC1");
 
             entity.ToTable("VaccineCertificate");
 

@@ -7,9 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CO_VM.Models;
 
 public partial class User
-
 {
-
     [Key]
     public int UserId { get; set; }
 
@@ -20,7 +18,7 @@ public partial class User
 
     [Required(ErrorMessage = "FullName is required")]
     [StringLength(100, ErrorMessage = "Full Name cannot exceed 100 characters")]
-    [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Full Name can only contain letters ")]
+    [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Full Name can only contain letters ")]
     public string FullName { get; set; }
 
     [Required(ErrorMessage = "Email is required")]
@@ -40,7 +38,9 @@ public partial class User
     public string Gender { get; set; }
 
     [Required(ErrorMessage = "Date of Birth is required")]
+    [DataType(DataType.Date)]
     public DateOnly Dob { get; set; }
+
 
     [Required(ErrorMessage = "Phone Number is required")]
     [Phone(ErrorMessage = "Invalid Phone Number")]
@@ -68,5 +68,4 @@ public partial class User
     public virtual ICollection<Slot> Slots { get; set; } = new List<Slot>();
 
     public virtual ICollection<VaccinationFeedback> VaccinationFeedbacks { get; set; } = new List<VaccinationFeedback>();
-
 }
