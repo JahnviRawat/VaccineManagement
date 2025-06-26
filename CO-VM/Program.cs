@@ -1,4 +1,6 @@
 using System.Text;
+using CO_VM.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddHttpClient();
+//builder.Services.AddDbContext<vaccineManagementContext>(con => con.UseSqlServer(builder.Configuration.GetConnectionString("MyCon")));
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 var app = builder.Build();
 

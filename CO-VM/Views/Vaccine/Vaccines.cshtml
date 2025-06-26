@@ -1,5 +1,7 @@
 ﻿@model List<CO_VM.Models.Vaccine>
 
+@* @model List<CO_VM.Models.Vaccine> *@
+
 <style>
     body {
         background: linear-gradient(135deg, #e3f2fd, #f1f8ff);
@@ -97,34 +99,100 @@
         border-radius: 0.5rem;
     }
 
+    .search-form select {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 2rem;
+        width: 200px;
+        transition: box-shadow 0.2s;
+    }
+
+        .search-form select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+            border-color: #1976d2;
+        }
+
+
         .btn-primary:hover {
             background: linear-gradient(to right, #1976d2, #42a5f5);
         }
+    .vaccine-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 1rem 1rem 0 0;
+        display: block;
+        background: #f5f5f5;
+    }
 </style>
 
 <div class="search-bar-container">
     <form method="post" class="search-form" autocomplete="off">
-        <input type="text" name="vaccinename" placeholder="Vaccine Name" />
-        <input type="text" name="centres" placeholder="Centre Name" />
-        <input type="text" name="city" placeholder="City" />
-        <input type="text" name="state" placeholder="State" />
+        <select name="vaccinename">
+            <option value="">All Vaccines</option>
+            @foreach (var name in ViewBag.VaccineNames as List<string> ?? new List<string>())
+            {
+                <option value="@name">@name</option>
+            }
+        </select>
+        <select name="state">
+            <option value="">All States</option>
+            @foreach (var state in ViewBag.States as List<string> ?? new List<string>())
+            {
+                <option value="@state">@state</option>
+            }
+        </select>
+        <select name="city">
+            <option value="">All Cities</option>
+            @foreach (var city in ViewBag.Cities as List<string> ?? new List<string>())
+            {
+                <option value="@city">@city</option>
+            }
+        </select>
+        <select name="centres">
+            <option value="">All Centres</option>
+            @foreach (var centre in ViewBag.Centres as List<string> ?? new List<string>())
+            {
+                <option value="@centre">@centre</option>
+            }
+        </select>
         <input type="submit" value="Search" />
     </form>
 </div>
+
+
+@if (ViewBag.no != null)
+{
+    <div style="color: #d32f2f; font-weight: bold; text-align: center; margin-bottom: 1rem;">
+        @ViewBag.no
+    </div>
+}
 
 <div class="vaccine-container">
     @foreach (var v in Model)
     {
         <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">@v.VaccineName</h5>
-                <p class="card-text">@v.Description</p>
-                <p><strong>Manufacturer:</strong> @v.Manufacturer</p>
-                <p><strong>Doses Required:</strong> @v.DosesRequired</p>
-                @* <p><strong>Price:</strong> ₹@v.Price</p> *@
-                <a asp-controller="Vaccine" asp-action="BookSlotForUser" asp-route-vaccineId="@v.VaccineId" class="btn btn-primary mt-2">
-                    Book Slot
-                </a>
+            <div class="card-body" style="padding:0;">
+                @if (v.Image != null && v.Image.Length > 0)
+                {
+                    <img class="vaccine-img" src="data:image/png;base64,@Convert.ToBase64String(v.Image)" alt="Vaccine image" />
+                }
+                else
+                {
+                    <img class="vaccine-img" src="https://via.placeholder.com/350x200?text=No+Image" alt="No image available" />
+                }
+                <div style="padding:1rem;">
+                    <h5 class="card-title">@v.VaccineName</h5>
+                    <p class="card-text">@v.Description</p>
+                    <p><strong>Manufacturer:</strong> @v.Manufacturer</p>
+                    <p><strong>Doses Required:</strong> @v.DosesRequired</p>
+                    @* <p><strong>Price:</strong> ₹@v.Price</p> *@
+                    <a asp-controller="Vaccine" asp-action="BookSlotForUser" asp-route-vaccineId="@v.VaccineId" class="btn btn-primary mt-2">
+                        Book Slot
+                    </a>
+                </div>
             </div>
         </div>
     }

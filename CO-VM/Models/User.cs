@@ -56,9 +56,9 @@ public partial class User
 
     [StringLength(50, ErrorMessage = "State cannot exceed 50 characters")]
     public string State { get; set; }
-
+   
     public string SecurityQuestion { get; set; }
-
+    [Required(ErrorMessage = "This is Required")]
     public string SecurityAnswer { get; set; }
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();

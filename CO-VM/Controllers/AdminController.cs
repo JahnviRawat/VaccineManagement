@@ -10,6 +10,20 @@ namespace CO_VM.Controllers
     public class AdminController : Controller
     {
         vaccineManagementContext vm = new vaccineManagementContext();
+        private readonly ILogger<VaccineController> logger;
+        //public AdminController(object @object, ILogger<VaccineController> logger)
+
+        //{
+        //    this.logger = logger;
+        //    //vm = con;
+
+        //}
+
+        //public AdminController()
+        //{
+        //}
+
+        //vaccineManagementContext vm = new vaccineManagementContext();
         [HttpGet]
         public IActionResult Index()
         {
@@ -159,7 +173,7 @@ namespace CO_VM.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred in AddUser.");
+               // logger.LogError(ex, "An error occurred in AddUser.");
                 return RedirectToAction("Vaccine", "Error");
 
             }
@@ -204,7 +218,7 @@ namespace CO_VM.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred in AddUser (POST).");
+               // logger.LogError(ex, "An error occurred in AddUser (POST).");
                 ViewBag.CaptchaError = "Add Userfailed.";
                 return View();
             }
@@ -231,62 +245,114 @@ namespace CO_VM.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred in UpdateUser.");
+                //logger.LogError(ex, "An error occurred in UpdateUser.");
                 return RedirectToAction("Vaccine", "Error");
 
             }
 
         }
+        //[HttpGet]
+        //public IActionResult UpdateUser(string username = null)
+        //{
+        //    try
+        //    {
+        //        // Always set ViewBag.Usernames
+        //        ViewBag.Usernames = vm.Users.Select(u => u.Username).ToList();
+
+        //        if (string.IsNullOrEmpty(username))
+        //        {
+        //            return View();
+        //        }
+        //        var user = vm.Users.FirstOrDefault(u => u.Username == username);
+        //        if (user == null)
+        //        {
+        //            ViewBag.Error = "User Not Found";
+        //            return View();
+        //        }
+        //        return View(user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //logger.LogError(ex, "An error occurred in UpdateUser.");
+        //        return RedirectToAction("Vaccine", "Error");
+        //    }
+        //}
+
+        //[HttpPost]
+        //public IActionResult UpdateUser(User upduse)
+        //{
+        //    try
+        //    {
+        //        // Always set ViewBag.Usernames
+        //        ViewBag.Usernames = vm.Users.Select(u => u.Username).ToList();
+
+        //        var user = vm.Users.FirstOrDefault(u => u.UserId == upduse.UserId);
+        //        if (user != null)
+        //        {
+        //            // ... update logic ...
+        //            vm.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+        //            vm.SaveChanges();
+        //            ViewBag.Success = "User updated successfully";
+        //        }
+        //        return View(user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.CaptchaError = "Update User failed.";
+        //        return View();
+        //    }
+        //}
+
 
         [HttpPost]
-        public IActionResult UpdateUser(User upduse)
-        {
-            try
+            public IActionResult UpdateUser(User upduse)
             {
-                var user = vm.Users.FirstOrDefault(u => u.UserId == upduse.UserId);
-                if (user != null)
+                try
                 {
-                    if (!string.IsNullOrWhiteSpace(upduse.FullName))
-                        user.FullName = upduse.FullName;
+                    var user = vm.Users.FirstOrDefault(u => u.UserId == upduse.UserId);
+                    if (user != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(upduse.FullName))
+                            user.FullName = upduse.FullName;
 
-                    if (!string.IsNullOrWhiteSpace(upduse.Username))
-                        user.Username = upduse.Username;
+                        if (!string.IsNullOrWhiteSpace(upduse.Username))
+                            user.Username = upduse.Username;
 
-                    if (!string.IsNullOrWhiteSpace(upduse.Email))
-                        user.Email = upduse.Email;
+                        if (!string.IsNullOrWhiteSpace(upduse.Email))
+                            user.Email = upduse.Email;
 
-                    if (!string.IsNullOrWhiteSpace(upduse.Address))
-                        user.Address = upduse.Address;
+                        if (!string.IsNullOrWhiteSpace(upduse.Address))
+                            user.Address = upduse.Address;
 
-                    if (!string.IsNullOrWhiteSpace(upduse.City))
-                        user.City = upduse.City;
+                        if (!string.IsNullOrWhiteSpace(upduse.City))
+                            user.City = upduse.City;
 
-                    if (!string.IsNullOrWhiteSpace(upduse.State))
-                        user.State = upduse.State;
+                        if (!string.IsNullOrWhiteSpace(upduse.State))
+                            user.State = upduse.State;
 
-                    if (!string.IsNullOrWhiteSpace(upduse.PhoneNumber))
-                        user.PhoneNumber = upduse.PhoneNumber;
+                        if (!string.IsNullOrWhiteSpace(upduse.PhoneNumber))
+                            user.PhoneNumber = upduse.PhoneNumber;
 
-                    if (!string.IsNullOrWhiteSpace(upduse.AadhaarNo))
-                        user.AadhaarNo = upduse.AadhaarNo;
+                        if (!string.IsNullOrWhiteSpace(upduse.AadhaarNo))
+                            user.AadhaarNo = upduse.AadhaarNo;
 
-                    // Update other fields if needed
-                    // Mark entity as modified
-                    vm.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    vm.SaveChanges();
-                    ViewBag.Success = "User updated successfully";
+                        // Update other fields if needed
+                        // Mark entity as modified
+                        vm.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        vm.SaveChanges();
+                        ViewBag.Success = "User updated successfully";
+                    }
+                    return View(user);
                 }
-                return View(user);
+                catch (Exception ex)
+                {
+                    // logger.LogError(ex, "An error occurred in UpdateUser (POST).");
+                    ViewBag.CaptchaError = "Update User failed.";
+                    return View();
+                }
             }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "An error occurred in UpdateUser (POST).");
-                ViewBag.CaptchaError = "Update User failed.";
-                return View();
-            }
-        }
 
-        [HttpGet]
+            [HttpGet]
         public IActionResult DeleteUser(int id)
         {
             try
@@ -559,12 +625,12 @@ namespace CO_VM.Controllers
 
         }
 
-        private readonly ILogger<AdminController> logger;
+        //private readonly ILogger<AdminController> logger;
 
-        public AdminController(ILogger<AdminController> logger)
-        {
-            this.logger = logger;
-        }
+        //public AdminController(ILogger<AdminController> logger)
+        //{
+        //    this.logger = logger;
+        //}
 
         public IActionResult Error()
         {

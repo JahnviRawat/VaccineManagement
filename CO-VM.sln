@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CO-VM", "CO-VM\CO-VM.csproj", "{6D7BF184-7B37-4625-9689-F50AF05AF12A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccineNUnitTesting", "VaccineNUnitTesting\VaccineNUnitTesting.csproj", "{AA198E9B-D80C-4E0A-8154-4DF680DAA6F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6D7BF184-7B37-4625-9689-F50AF05AF12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D7BF184-7B37-4625-9689-F50AF05AF12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D7BF184-7B37-4625-9689-F50AF05AF12A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA198E9B-D80C-4E0A-8154-4DF680DAA6F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA198E9B-D80C-4E0A-8154-4DF680DAA6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA198E9B-D80C-4E0A-8154-4DF680DAA6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA198E9B-D80C-4E0A-8154-4DF680DAA6F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

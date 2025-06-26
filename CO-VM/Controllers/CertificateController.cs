@@ -9,6 +9,15 @@ namespace CO_VM.Controllers
     public class CertificateController : Controller
     {
         vaccineManagementContext vm = new vaccineManagementContext();
+        //vaccineManagementContext vm;
+
+        //public CertificateController(vaccineManagementContext con)
+
+        //{
+
+        //    vm = con;
+
+        //}
         public IActionResult Index()
         {
             return View();
@@ -36,6 +45,7 @@ namespace CO_VM.Controllers
                 // Get from Family table
                 users = vm.Families.FirstOrDefault(f => f.FamilyId == booking.FamilyId);
             }
+
             var vaccines = (from t in vm.Vaccines where t.VaccineId == booking.VaccineId select t).FirstOrDefault();
             DateTime certificateDate = DateTime.Parse(date);
 

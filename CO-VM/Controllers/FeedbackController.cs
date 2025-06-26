@@ -9,6 +9,15 @@ namespace CO_VM.Controllers
     public class FeedbackController : ControllerBase
     {
         vaccineManagementContext vm = new vaccineManagementContext();
+        //vaccineManagementContext vm;
+
+        //public FeedbackController(vaccineManagementContext con)
+
+        //{
+
+        //    vm = con;
+
+        //}
         [Route("Feedback")]
         [HttpGet]
         public IActionResult GetCompletedVaccines(int userId)

@@ -1,12 +1,27 @@
 ﻿using CO_VM.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CO_VM.Controllers
 {
     public class VaccineController : Controller
     {
-        vaccineManagementContext ob = new vaccineManagementContext();
+        vaccineManagementContext vm = new vaccineManagementContext();
+        //vaccineManagementContext vm;
+        private readonly ILogger<VaccineController> logger;
+        public VaccineController(ILogger<VaccineController> logger)
+
+        {
+            this.logger = logger;
+            //vm = con;
+
+        }
+
+        //public VaccineController()
+        //{
+        //}
+
         public IActionResult Index()
         {
             return View();
@@ -17,13 +32,16 @@ namespace CO_VM.Controllers
             try
             {
                 int userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+                var user = vm.Users.FirstOrDefault(u => u.UserId == userId);
+                // Eager load Relation for each family member
+                var family = vm.Families
+                    .Include(f => f.Relation)
+                    .Where(f => f.UserId == userId)
+                    .ToList();
 
-                var user = ob.Users.FirstOrDefault(u => u.UserId == userId);
-                var family = ob.Families.Where(f => f.UserId == userId).ToList();
                 var familyIds = family.Select(f => f.FamilyId).ToList();
 
-
-                var bookings = ob.Bookings
+                var bookings = vm.Bookings
                     .Where(b => b.UserId == userId || (b.FamilyId != null && familyIds.Contains(b.FamilyId.Value)))
                     .OrderByDescending(b => b.BookingDate)
                     .ToList();
@@ -31,8 +49,8 @@ namespace CO_VM.Controllers
                 foreach (var booking in bookings)
                 {
                     booking.Family = booking.Family ?? family.FirstOrDefault(f => f.FamilyId == booking.FamilyId);
-                    booking.Vaccine = booking.Vaccine ?? ob.Vaccines.FirstOrDefault(v => v.VaccineId == booking.VaccineId);
-                    booking.Slot = booking.Slot ?? ob.Slots.FirstOrDefault(s => s.SlotId == booking.SlotId);
+                    booking.Vaccine = booking.Vaccine ?? vm.Vaccines.FirstOrDefault(v => v.VaccineId == booking.VaccineId);
+                    booking.Slot = booking.Slot ?? vm.Slots.FirstOrDefault(s => s.SlotId == booking.SlotId);
                 }
 
                 ViewBag.User = user;
@@ -41,13 +59,11 @@ namespace CO_VM.Controllers
                 ViewBag.Bookings = bookings;
 
                 return View();
-
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred in UserDashboard.");
                 return RedirectToAction("Error");
-
             }
         }
 
@@ -56,11 +72,11 @@ namespace CO_VM.Controllers
         {
             try
             {
-                var family = ob.Families.FirstOrDefault(f => f.FamilyId == id);
+                var family = vm.Families.FirstOrDefault(f => f.FamilyId == id);
                 if (family != null)
                 {
-                    ob.Families.Remove(family);
-                    ob.SaveChangesAsync();
+                    vm.Families.Remove(family);
+                    vm.SaveChangesAsync();
                 }
 
                 return RedirectToAction("UserDashboard");
@@ -82,7 +98,7 @@ namespace CO_VM.Controllers
             try
             {
                 var model = new Family();
-                ViewBag.Relations = ob.Relations.ToList();
+                ViewBag.Relations = vm.Relations.ToList();
                 return View(model);
             }
             catch (Exception ex)
@@ -105,8 +121,8 @@ namespace CO_VM.Controllers
                     model.UserId = userId;
 
 
-                    ob.Families.Add(model);
-                    ob.SaveChangesAsync();
+                    vm.Families.Add(model);
+                    vm.SaveChangesAsync();
 
 
                     return RedirectToAction("UserDashboard");
@@ -124,7 +140,6 @@ namespace CO_VM.Controllers
         }
 
         [HttpGet]
-
         public IActionResult Vaccines()
         {
             try
@@ -132,27 +147,31 @@ namespace CO_VM.Controllers
                 if (HttpContext.Session.GetString("UserId") == null)
                 {
                     return RedirectToAction("Login", "Vaccine");
-
                 }
-                // Cache control for security 
 
                 Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate";
-
                 Response.Headers["Pragma"] = "no-cache";
-
                 Response.Headers["Expires"] = "-1";
-                var res = (from t in ob.Vaccines select t).ToList();
 
-                return View(res);
+                var vaccines = vm.Vaccines.ToList();
+                var states = vm.Centres.Select(c => c.State).Distinct().ToList();
+                var cities = vm.Centres.Select(c => c.City).Distinct().ToList();
+                var centres = vm.Centres.Select(c => c.CentreName).Distinct().ToList();
+
+                ViewBag.VaccineNames = vaccines.Select(v => v.VaccineName).Distinct().ToList();
+                ViewBag.States = states;
+                ViewBag.Cities = cities;
+                ViewBag.Centres = centres;
+
+                return View(vaccines);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred in Family.");
                 return RedirectToAction("Error");
-
             }
-
         }
+
 
         [HttpPost]
         public IActionResult Vaccines(IFormCollection f)
@@ -163,7 +182,7 @@ namespace CO_VM.Controllers
             string vaccinename = f["vaccinename"];
 
             // Find all matching centres (by city, state, and centre name)
-            var centres = ob.Centres
+            var centres = vm.Centres
                 .Where(c =>
                     (string.IsNullOrEmpty(city) || c.City.Contains(city)) &&
                     (string.IsNullOrEmpty(state) || c.State.Contains(state)) &&
@@ -174,11 +193,13 @@ namespace CO_VM.Controllers
             if (centres.Count == 0)
             {
                 ViewBag.no = "No city/state/centre available";
+                // Set ViewBag for dropdowns
+                SetDropdownViewBags();
                 return View(new List<Vaccine>());
             }
 
             // Find all vaccine-centre mappings for those centres
-            var vaccineCentreIds = ob.VaccineCentres
+            var vaccineCentreIds = vm.VaccineCentres
                 .Where(vc => centres.Contains(vc.CentreId))
                 .Select(vc => vc.VaccineId)
                 .Distinct()
@@ -187,11 +208,12 @@ namespace CO_VM.Controllers
             if (vaccineCentreIds.Count == 0)
             {
                 ViewBag.no = "No vaccine center available for this city/state/centre";
+                SetDropdownViewBags();
                 return View(new List<Vaccine>());
             }
 
             // Find all vaccines for those mappings and filter by vaccine name if provided
-            var vaccines = ob.Vaccines
+            var vaccines = vm.Vaccines
                 .Where(v => vaccineCentreIds.Contains(v.VaccineId) &&
                     (string.IsNullOrEmpty(vaccinename) || v.VaccineName.Contains(vaccinename)))
                 .ToList();
@@ -201,8 +223,21 @@ namespace CO_VM.Controllers
                 ViewBag.no = "No vaccines available for this city/state/centre/vaccine name";
             }
 
+            // Set ViewBag for dropdowns
+            SetDropdownViewBags();
+
             return View(vaccines);
+
+            // Local function to set dropdown ViewBags
+            void SetDropdownViewBags()
+            {
+                ViewBag.VaccineNames = vm.Vaccines.Select(v => v.VaccineName).Distinct().ToList();
+                ViewBag.States = vm.Centres.Select(c => c.State).Distinct().ToList();
+                ViewBag.Cities = vm.Centres.Select(c => c.City).Distinct().ToList();
+                ViewBag.Centres = vm.Centres.Select(c => c.CentreName).Distinct().ToList();
+            }
         }
+
 
 
         //[HttpPost]
@@ -232,71 +267,71 @@ namespace CO_VM.Controllers
         //        return View();
         //    }
 
-            //try
-            //{
-            //    // Start with all vaccines and join to centres
-            //    var vaccinesQuery = from v in ob.Vaccines
-            //                        join vc in ob.VaccineCentres on v.VaccineId equals vc.VaccineId
-            //                        join c in ob.Centres on vc.CentreId equals c.CentreId
-            //                        select new { Vaccine = v, Centre = c };
+        //try
+        //{
+        //    // Start with all vaccines and join to centres
+        //    var vaccinesQuery = from v in ob.Vaccines
+        //                        join vc in ob.VaccineCentres on v.VaccineId equals vc.VaccineId
+        //                        join c in ob.Centres on vc.CentreId equals c.CentreId
+        //                        select new { Vaccine = v, Centre = c };
 
-            //    var result = vaccinesQuery.Where(s => s.Vaccine.VaccineName.Contains(search) || s.Centre.State.Contains(search));
-
-
-            //    return View(result.ToList());
-
-            //    //bool hasSearch = !string.IsNullOrWhiteSpace(search);
-            //    //bool hasState = !string.IsNullOrWhiteSpace(state);
-            //    //bool hasCentre = !string.IsNullOrWhiteSpace(centre);
-
-            //    //if (hasSearch)
-            //    //{
-            //    //    string searchLower = search.ToLower();
-            //    //    vaccinesQuery = vaccinesQuery.Where(x =>
-            //    //        (x.Vaccine.VaccineName != null && x.Vaccine.VaccineName.ToLower().Contains(searchLower)) ||
-            //    //        (x.Vaccine.Description != null && x.Vaccine.Description.ToLower().Contains(searchLower)) ||
-            //    //        (x.Vaccine.Manufacturer != null && x.Vaccine.Manufacturer.ToLower().Contains(searchLower))
-            //    //    );
-            //    //}
-
-            //    //if (hasState)
-            //    //{
-            //    //    string stateLower = state.ToLower();
-            //    //    vaccinesQuery = vaccinesQuery.Where(x =>
-            //    //        x.Centre.State != null && x.Centre.State.ToLower().Contains(stateLower)
-            //    //    );
-            //    //}
-
-            //    //if (hasCentre)
-            //    //{
-            //    //    string centreLower = centre.ToLower();
-            //    //    vaccinesQuery = vaccinesQuery.Where(x =>
-            //    //        x.Centre.CentreName != null && x.Centre.CentreName.ToLower().Contains(centreLower)
-            //    //    );
-            //    //}
-
-            //    //List<Vaccine> result;
-            //    //if (!hasSearch && !hasState && !hasCentre)
-            //    //{
-            //    //    result = ob.Vaccines.ToList();
-            //    //}
-            //    //else
-            //    //{
-            //    //    // ToList() here to force query execution before Distinct()
-            //    //    result = vaccinesQuery
-            //    //        .Select(x => x.Vaccine)
-            //    //        .Distinct()
-            //    //        .ToList();
-            //    //}
+        //    var result = vaccinesQuery.Where(s => s.Vaccine.VaccineName.Contains(search) || s.Centre.State.Contains(search));
 
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.LogError(ex, "An error occurred in VaccineSearch.");
-            //    ViewBag.Error = "Search failed. Please try again.";
-            //    return View("Vaccines", new List<Vaccine>());
-            //}
+        //    return View(result.ToList());
+
+        //    //bool hasSearch = !string.IsNullOrWhiteSpace(search);
+        //    //bool hasState = !string.IsNullOrWhiteSpace(state);
+        //    //bool hasCentre = !string.IsNullOrWhiteSpace(centre);
+
+        //    //if (hasSearch)
+        //    //{
+        //    //    string searchLower = search.ToLower();
+        //    //    vaccinesQuery = vaccinesQuery.Where(x =>
+        //    //        (x.Vaccine.VaccineName != null && x.Vaccine.VaccineName.ToLower().Contains(searchLower)) ||
+        //    //        (x.Vaccine.Description != null && x.Vaccine.Description.ToLower().Contains(searchLower)) ||
+        //    //        (x.Vaccine.Manufacturer != null && x.Vaccine.Manufacturer.ToLower().Contains(searchLower))
+        //    //    );
+        //    //}
+
+        //    //if (hasState)
+        //    //{
+        //    //    string stateLower = state.ToLower();
+        //    //    vaccinesQuery = vaccinesQuery.Where(x =>
+        //    //        x.Centre.State != null && x.Centre.State.ToLower().Contains(stateLower)
+        //    //    );
+        //    //}
+
+        //    //if (hasCentre)
+        //    //{
+        //    //    string centreLower = centre.ToLower();
+        //    //    vaccinesQuery = vaccinesQuery.Where(x =>
+        //    //        x.Centre.CentreName != null && x.Centre.CentreName.ToLower().Contains(centreLower)
+        //    //    );
+        //    //}
+
+        //    //List<Vaccine> result;
+        //    //if (!hasSearch && !hasState && !hasCentre)
+        //    //{
+        //    //    result = ob.Vaccines.ToList();
+        //    //}
+        //    //else
+        //    //{
+        //    //    // ToList() here to force query execution before Distinct()
+        //    //    result = vaccinesQuery
+        //    //        .Select(x => x.Vaccine)
+        //    //        .Distinct()
+        //    //        .ToList();
+        //    //}
+
+
+        //}
+        //catch (Exception ex)
+        //{
+        //    logger.LogError(ex, "An error occurred in VaccineSearch.");
+        //    ViewBag.Error = "Search failed. Please try again.";
+        //    return View("Vaccines", new List<Vaccine>());
+        //}
         //}
 
 
@@ -336,7 +371,7 @@ namespace CO_VM.Controllers
                     ModelState.AddModelError("Captcha", "Invalid captcha code. Please try again.");
                 }
                 var passwordBytes = System.Text.Encoding.UTF8.GetBytes(Password);
-                var user = ob.Users.FirstOrDefault(u => u.Username == Username && u.Password.SequenceEqual(passwordBytes));
+                var user = vm.Users.FirstOrDefault(u => u.Username == Username && u.Password.SequenceEqual(passwordBytes));
 
                 var newCaptchaCode = GenerateCaptchaCode(5);
                 HttpContext.Session.SetString("CaptchaCode", newCaptchaCode);
@@ -422,7 +457,7 @@ namespace CO_VM.Controllers
         {
             try
             {
-                var user = ob.Users.FirstOrDefault(u => u.Username == Username);
+                var user = vm.Users.FirstOrDefault(u => u.Username == Username);
 
                 if (user == null)
                 {
@@ -451,7 +486,7 @@ namespace CO_VM.Controllers
                 {
                     var bytes = System.Text.Encoding.UTF8.GetBytes(NewPassword);
                     user.Password = bytes;
-                    ob.SaveChangesAsync();
+                    vm.SaveChangesAsync();
                     TempData["Success"] = "Password set successfully!";
                     return RedirectToAction("Login");
                 }
@@ -490,7 +525,7 @@ namespace CO_VM.Controllers
         {
             try
             {
-                var user = ob.Users.FirstOrDefault(u => u.Username == Username);
+                var user = vm.Users.FirstOrDefault(u => u.Username == Username);
 
                 if (user == null)
                 {
@@ -515,7 +550,7 @@ namespace CO_VM.Controllers
 
                 // Update password 
                 user.Password = newpassword;
-                ob.SaveChangesAsync();
+                vm.SaveChangesAsync();
 
                 TempData["Success"] = "Password Reset successfully!";
                 return RedirectToAction("Login");
@@ -576,8 +611,8 @@ namespace CO_VM.Controllers
 
                 try
                 {
-                    ob.Users.Add(u);
-                    int i = ob.SaveChanges();
+                    vm.Users.Add(u);
+                    int i = vm.SaveChanges();
 
                     if (i != 0)
                     {
@@ -593,7 +628,7 @@ namespace CO_VM.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred in Register.");
+               // logger.LogError(ex, "An error occurred in Register.");
                 ViewBag.data = "Registration Failed";
                 return View("Register");
             }
@@ -607,7 +642,7 @@ namespace CO_VM.Controllers
             {
                 int userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
 
-                var booking = ob.Bookings
+                var booking = vm.Bookings
                     .Where(b => b.FamilyId == familyId && b.Status == "Booked")
                     .OrderByDescending(b => b.BookingDate)
                     .FirstOrDefault();
@@ -616,16 +651,16 @@ namespace CO_VM.Controllers
                 {
                     booking.Status = "Cancelled";
 
-                    var vaccine = ob.Vaccines.FirstOrDefault(v => v.VaccineId == booking.VaccineId);
+                    var vaccine = vm.Vaccines.FirstOrDefault(v => v.VaccineId == booking.VaccineId);
                     if (vaccine != null && vaccine.Stock.HasValue)
                     {
                         vaccine.Stock += 1;
-                        ob.SaveChangesAsync();
+                        vm.SaveChangesAsync();
                     }
                 }
 
 
-                ob.SaveChangesAsync();
+                vm.SaveChangesAsync();
                 return RedirectToAction("UserDashboard");
             }
             catch (Exception ex)
@@ -649,7 +684,7 @@ namespace CO_VM.Controllers
                 }
                 int userId = Convert.ToInt32(userIdStr);
 
-                var booking = ob.Bookings
+                var booking = vm.Bookings
                     .Where(b => b.UserId == userId && b.FamilyId == null && b.Status == "Booked")
                     .OrderByDescending(b => b.BookingDate)
                     .FirstOrDefault();
@@ -658,12 +693,12 @@ namespace CO_VM.Controllers
                 {
                     booking.Status = "Cancelled";
 
-                    var vaccine = ob.Vaccines.FirstOrDefault(v => v.VaccineId == booking.VaccineId);
+                    var vaccine = vm.Vaccines.FirstOrDefault(v => v.VaccineId == booking.VaccineId);
                     if (vaccine != null && vaccine.Stock.HasValue)
                     {
                         vaccine.Stock += 1;
                     }
-                    ob.SaveChangesAsync();
+                    vm.SaveChangesAsync();
                 }
 
                 return RedirectToAction("UserDashboard");
@@ -683,12 +718,12 @@ namespace CO_VM.Controllers
         {
             try
             {
-                var family = ob.Families.FirstOrDefault(f => f.FamilyId == familyId);
+                var family = vm.Families.FirstOrDefault(f => f.FamilyId == familyId);
                 if (family == null) return NotFound();
 
                 ViewBag.Family = family;
-                ViewBag.Vaccines = ob.Vaccines.ToList();
-                ViewBag.Centres = ob.Centres.ToList();
+                ViewBag.Vaccines = vm.Vaccines.ToList();
+                ViewBag.Centres = vm.Centres.ToList();
                 return View();
             }
             catch (Exception ex)
@@ -701,6 +736,95 @@ namespace CO_VM.Controllers
         }
 
 
+        //[HttpPost]
+        //public IActionResult BookSlot(int familyId, int vaccineId, int centreId, DateTime slotDate, TimeSpan slotTime)
+        //{
+        //    try
+        //    {
+        //        int userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
+
+        //        var vaccine1 = vm.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
+        //        if (vaccine1 == null || !vaccine1.Stock.HasValue || vaccine1.Stock.Value <= 0)
+        //        {
+        //            ViewBag.Family = vm.Families.FirstOrDefault(f => f.FamilyId == familyId);
+        //            ViewBag.Vaccines = vm.Vaccines.ToList();
+        //            ViewBag.Centres = vm.Centres.ToList();
+        //            ViewBag.Error = "Selected vaccine is out of stock.";
+        //            return View();
+        //        }
+
+        //        var slot = vm.Slots.FirstOrDefault(s =>
+        //            s.VaccineId == vaccineId &&
+        //            s.CentreId == centreId &&
+        //            s.SlotDate == DateOnly.FromDateTime(slotDate) &&
+        //            s.SlotTime == TimeOnly.FromTimeSpan(slotTime) &&
+        //            s.FamilyId == familyId);
+
+        //        if (slot == null)
+        //        {
+        //            slot = new Slot
+        //            {
+        //                VaccineId = vaccineId,
+        //                UserId = userId,
+        //                CentreId = centreId,
+        //                SlotDate = DateOnly.FromDateTime(slotDate),
+        //                SlotTime = TimeOnly.FromTimeSpan(slotTime),
+        //                FamilyId = familyId
+        //            };
+        //            vm.Slots.Add(slot);
+        //            vm.SaveChanges();
+        //        }
+
+        //        var booking = vm.Bookings
+        //            .Where(b => b.FamilyId == familyId && b.Status == "Cancelled")
+        //            .OrderByDescending(b => b.BookingDate)
+        //            .FirstOrDefault();
+
+        //        if (booking != null)
+        //        {
+        //            booking.SlotId = slot.SlotId;
+        //            booking.VaccineId = vaccineId;
+        //            booking.BookingDate = DateTime.Now;
+        //            booking.VaccinatedOn = DateOnly.FromDateTime(slotDate);
+        //            booking.Status = "Booked";
+        //            booking.PaymentMode = "Online";
+        //        }
+        //        else
+        //        {
+        //            booking = new Booking
+        //            {
+        //                UserId = userId,
+        //                FamilyId = familyId,
+        //                SlotId = slot.SlotId,
+        //                VaccineId = vaccineId,
+        //                BookingDate = DateTime.Now,
+        //                Status = "Booked",
+        //                PaymentMode = "Online"
+        //            };
+        //            vm.Bookings.Add(booking);
+        //        }
+
+        //        var vaccine = vm.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
+        //        if (vaccine != null && vaccine.Stock.HasValue && vaccine.Stock.Value > 0)
+        //        {
+        //            vaccine.Stock -= 1;
+        //        }
+
+        //        vm.SaveChanges();
+        //        return RedirectToAction("UserDashboard");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.LogError(ex, "An error occurred in Booking Slot.");
+        //        ViewBag.data = "Booking failed.";
+        //        // Repopulate dropdowns for the view
+        //        ViewBag.Family = vm.Families.FirstOrDefault(f => f.FamilyId == familyId);
+        //        ViewBag.Vaccines = vm.Vaccines.ToList();
+        //        ViewBag.Centres = vm.Centres.ToList();
+        //        return View();
+        //    }
+        //}
+
         [HttpPost]
         public IActionResult BookSlot(int familyId, int vaccineId, int centreId, DateTime slotDate, TimeSpan slotTime)
         {
@@ -708,17 +832,30 @@ namespace CO_VM.Controllers
             {
                 int userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
 
-                var vaccine1 = ob.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
+                // Check if this family member already has a booking for this vaccine that is not cancelled
+                var existingBooking = vm.Bookings
+                    .FirstOrDefault(b => b.FamilyId == familyId && b.VaccineId == vaccineId && b.Status == "Booked");
+
+                if (existingBooking != null)
+                {
+                    ViewBag.Family = vm.Families.FirstOrDefault(f => f.FamilyId == familyId);
+                    ViewBag.Vaccines = vm.Vaccines.ToList();
+                    ViewBag.Centres = vm.Centres.ToList();
+                    ViewBag.Error = "This family member already has a booking for this vaccine.";
+                    return View();
+                }
+
+                var vaccine1 = vm.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
                 if (vaccine1 == null || !vaccine1.Stock.HasValue || vaccine1.Stock.Value <= 0)
                 {
-                    ViewBag.Family = ob.Families.FirstOrDefault(f => f.FamilyId == familyId);
-                    ViewBag.Vaccines = ob.Vaccines.ToList();
-                    ViewBag.Centres = ob.Centres.ToList();
+                    ViewBag.Family = vm.Families.FirstOrDefault(f => f.FamilyId == familyId);
+                    ViewBag.Vaccines = vm.Vaccines.ToList();
+                    ViewBag.Centres = vm.Centres.ToList();
                     ViewBag.Error = "Selected vaccine is out of stock.";
                     return View();
                 }
 
-                var slot = ob.Slots.FirstOrDefault(s =>
+                var slot = vm.Slots.FirstOrDefault(s =>
                     s.VaccineId == vaccineId &&
                     s.CentreId == centreId &&
                     s.SlotDate == DateOnly.FromDateTime(slotDate) &&
@@ -736,27 +873,27 @@ namespace CO_VM.Controllers
                         SlotTime = TimeOnly.FromTimeSpan(slotTime),
                         FamilyId = familyId
                     };
-                    ob.Slots.Add(slot);
-                    ob.SaveChanges();
+                    vm.Slots.Add(slot);
+                    vm.SaveChanges();
                 }
 
-                var booking = ob.Bookings
+                var cancelledBooking = vm.Bookings
                     .Where(b => b.FamilyId == familyId && b.Status == "Cancelled")
                     .OrderByDescending(b => b.BookingDate)
                     .FirstOrDefault();
 
-                if (booking != null)
+                if (cancelledBooking != null)
                 {
-                    booking.SlotId = slot.SlotId;
-                    booking.VaccineId = vaccineId;
-                    booking.BookingDate = DateTime.Now;
-                    booking.VaccinatedOn = DateOnly.FromDateTime(slotDate);
-                    booking.Status = "Booked";
-                    booking.PaymentMode = "Online";
+                    cancelledBooking.SlotId = slot.SlotId;
+                    cancelledBooking.VaccineId = vaccineId;
+                    cancelledBooking.BookingDate = DateTime.Now;
+                    cancelledBooking.VaccinatedOn = DateOnly.FromDateTime(slotDate);
+                    cancelledBooking.Status = "Booked";
+                    cancelledBooking.PaymentMode = "Online";
                 }
                 else
                 {
-                    booking = new Booking
+                    var booking = new Booking
                     {
                         UserId = userId,
                         FamilyId = familyId,
@@ -766,16 +903,15 @@ namespace CO_VM.Controllers
                         Status = "Booked",
                         PaymentMode = "Online"
                     };
-                    ob.Bookings.Add(booking);
+                    vm.Bookings.Add(booking);
                 }
 
-                var vaccine = ob.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
-                if (vaccine != null && vaccine.Stock.HasValue && vaccine.Stock.Value > 0)
+                if (vaccine1.Stock.HasValue && vaccine1.Stock.Value > 0)
                 {
-                    vaccine.Stock -= 1;
+                    vaccine1.Stock -= 1;
                 }
 
-                ob.SaveChanges();
+                vm.SaveChanges();
                 return RedirectToAction("UserDashboard");
             }
             catch (Exception ex)
@@ -783,9 +919,9 @@ namespace CO_VM.Controllers
                 logger.LogError(ex, "An error occurred in Booking Slot.");
                 ViewBag.data = "Booking failed.";
                 // Repopulate dropdowns for the view
-                ViewBag.Family = ob.Families.FirstOrDefault(f => f.FamilyId == familyId);
-                ViewBag.Vaccines = ob.Vaccines.ToList();
-                ViewBag.Centres = ob.Centres.ToList();
+                ViewBag.Family = vm.Families.FirstOrDefault(f => f.FamilyId == familyId);
+                ViewBag.Vaccines = vm.Vaccines.ToList();
+                ViewBag.Centres = vm.Centres.ToList();
                 return View();
             }
         }
@@ -796,24 +932,24 @@ namespace CO_VM.Controllers
             try
             {
                 int userId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
-                var vaccine = ob.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
+                var vaccine = vm.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
                 if (vaccine == null || !vaccine.Stock.HasValue || vaccine.Stock.Value <= 0)
                 {
                     // Repopulate dropdowns and show error
-                    ViewBag.User = ob.Users.FirstOrDefault(u => u.UserId == userId);
-                    ViewBag.Vaccines = ob.Vaccines.ToList();
-                    ViewBag.Centres = ob.Centres.ToList();
+                    ViewBag.User = vm.Users.FirstOrDefault(u => u.UserId == userId);
+                    ViewBag.Vaccines = vm.Vaccines.ToList();
+                    ViewBag.Centres = vm.Centres.ToList();
                     ViewBag.SelectedVaccineId = vaccineId;
                     ViewBag.Error = "Selected vaccine is out of stock.";
                     return View();
                 }
 
-                var user = ob.Users.FirstOrDefault(u => u.UserId == userId);
+                var user = vm.Users.FirstOrDefault(u => u.UserId == userId);
 
 
                 ViewBag.User = user;
-                ViewBag.Vaccines = ob.Vaccines.ToList();
-                ViewBag.Centres = ob.Centres.ToList();
+                ViewBag.Vaccines = vm.Vaccines.ToList();
+                ViewBag.Centres = vm.Centres.ToList();
                 ViewBag.SelectedVaccineId = vaccineId;
                 return View();
             }
@@ -825,6 +961,96 @@ namespace CO_VM.Controllers
             }
         }
 
+
+        //[HttpPost]
+        //public IActionResult BookSlotForUser(int vaccineId, int centreId, DateTime slotDate, TimeSpan slotTime)
+        //{
+        //    try
+        //    {
+        //        string userIdStr = HttpContext.Session.GetString("UserId");
+        //        if (string.IsNullOrEmpty(userIdStr))
+        //        {
+        //            return RedirectToAction("Login");
+        //        }
+        //        int userId = Convert.ToInt32(userIdStr);
+
+        //        var vaccine = vm.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
+        //        if (vaccine == null || !vaccine.Stock.HasValue || vaccine.Stock.Value <= 0)
+        //        {
+        //            ViewBag.Error = "Selected vaccine is out of stock.";
+        //            ViewBag.User = vm.Users.FirstOrDefault(u => u.UserId == userId);
+        //            ViewBag.Vaccines = vm.Vaccines.ToList();
+        //            ViewBag.Centres = vm.Centres.ToList();
+        //            ViewBag.SelectedVaccineId = vaccineId;
+        //            return View();
+        //        }
+
+        //        var slot = vm.Slots.FirstOrDefault(s =>
+        //            s.VaccineId == vaccineId &&
+        //            s.CentreId == centreId &&
+        //            s.SlotDate == DateOnly.FromDateTime(slotDate) &&
+        //            s.SlotTime == TimeOnly.FromTimeSpan(slotTime) &&
+        //            s.UserId == userId &&
+        //            s.FamilyId == null);
+
+        //        if (slot == null)
+        //        {
+        //            slot = new Slot
+        //            {
+        //                VaccineId = vaccineId,
+        //                UserId = userId,
+        //                CentreId = centreId,
+        //                SlotDate = DateOnly.FromDateTime(slotDate),
+        //                SlotTime = TimeOnly.FromTimeSpan(slotTime),
+        //                FamilyId = null
+        //            };
+        //            vm.Slots.Add(slot);
+        //            vm.SaveChanges();
+        //        }
+
+        //        var booking = vm.Bookings
+        //            .Where(b => b.UserId == userId && b.FamilyId == null && b.Status == "Cancelled")
+        //            .OrderByDescending(b => b.BookingDate)
+        //            .FirstOrDefault();
+
+        //        if (booking != null)
+        //        {
+        //            booking.SlotId = slot.SlotId;
+        //            booking.VaccineId = vaccineId;
+        //            booking.BookingDate = DateTime.Now;
+        //            booking.Status = "Booked";
+        //            booking.PaymentMode = "Online";
+        //        }
+        //        else
+        //        {
+        //            booking = new Booking
+        //            {
+        //                UserId = userId,
+        //                FamilyId = null,
+        //                SlotId = slot.SlotId,
+        //                VaccineId = vaccineId,
+        //                BookingDate = DateTime.Now,
+        //                Status = "Booked",
+        //                PaymentMode = "Online"
+        //            };
+        //            vm.Bookings.Add(booking);
+        //        }
+
+        //        if (vaccine.Stock.HasValue && vaccine.Stock.Value > 0)
+        //        {
+        //            vaccine.Stock -= 1;
+        //        }
+        //        vm.SaveChanges();
+
+        //        return RedirectToAction("UserDashboard");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.LogError(ex, "An error occurred in Booking Slot.");
+        //        ViewBag.data = "Booking failed.";
+        //        return View();
+        //    }
+        //}
 
         [HttpPost]
         public IActionResult BookSlotForUser(int vaccineId, int centreId, DateTime slotDate, TimeSpan slotTime)
@@ -838,18 +1064,32 @@ namespace CO_VM.Controllers
                 }
                 int userId = Convert.ToInt32(userIdStr);
 
-                var vaccine = ob.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
-                if (vaccine == null || !vaccine.Stock.HasValue || vaccine.Stock.Value <= 0)
+                // Prevent duplicate booking for the same vaccine
+                var existingBooking = vm.Bookings
+                    .FirstOrDefault(b => b.UserId == userId && b.FamilyId == null && b.VaccineId == vaccineId && b.Status == "Booked");
+
+                if (existingBooking != null)
                 {
-                    ViewBag.Error = "Selected vaccine is out of stock.";
-                    ViewBag.User = ob.Users.FirstOrDefault(u => u.UserId == userId);
-                    ViewBag.Vaccines = ob.Vaccines.ToList();
-                    ViewBag.Centres = ob.Centres.ToList();
+                    ViewBag.Error = "You have already booked this vaccine.";
+                    ViewBag.User = vm.Users.FirstOrDefault(u => u.UserId == userId);
+                    ViewBag.Vaccines = vm.Vaccines.ToList();
+                    ViewBag.Centres = vm.Centres.ToList();
                     ViewBag.SelectedVaccineId = vaccineId;
                     return View();
                 }
 
-                var slot = ob.Slots.FirstOrDefault(s =>
+                var vaccine = vm.Vaccines.FirstOrDefault(v => v.VaccineId == vaccineId);
+                if (vaccine == null || !vaccine.Stock.HasValue || vaccine.Stock.Value <= 0)
+                {
+                    ViewBag.Error = "Selected vaccine is out of stock.";
+                    ViewBag.User = vm.Users.FirstOrDefault(u => u.UserId == userId);
+                    ViewBag.Vaccines = vm.Vaccines.ToList();
+                    ViewBag.Centres = vm.Centres.ToList();
+                    ViewBag.SelectedVaccineId = vaccineId;
+                    return View();
+                }
+
+                var slot = vm.Slots.FirstOrDefault(s =>
                     s.VaccineId == vaccineId &&
                     s.CentreId == centreId &&
                     s.SlotDate == DateOnly.FromDateTime(slotDate) &&
@@ -868,11 +1108,11 @@ namespace CO_VM.Controllers
                         SlotTime = TimeOnly.FromTimeSpan(slotTime),
                         FamilyId = null
                     };
-                    ob.Slots.Add(slot);
-                    ob.SaveChanges();
+                    vm.Slots.Add(slot);
+                    vm.SaveChanges();
                 }
 
-                var booking = ob.Bookings
+                var booking = vm.Bookings
                     .Where(b => b.UserId == userId && b.FamilyId == null && b.Status == "Cancelled")
                     .OrderByDescending(b => b.BookingDate)
                     .FirstOrDefault();
@@ -897,14 +1137,14 @@ namespace CO_VM.Controllers
                         Status = "Booked",
                         PaymentMode = "Online"
                     };
-                    ob.Bookings.Add(booking);
+                    vm.Bookings.Add(booking);
                 }
 
                 if (vaccine.Stock.HasValue && vaccine.Stock.Value > 0)
                 {
                     vaccine.Stock -= 1;
                 }
-                ob.SaveChanges();
+                vm.SaveChanges();
 
                 return RedirectToAction("UserDashboard");
             }
@@ -914,14 +1154,6 @@ namespace CO_VM.Controllers
                 ViewBag.data = "Booking failed.";
                 return View();
             }
-        }
-
-
-        private readonly ILogger<VaccineController> logger;
-
-        public VaccineController(ILogger<VaccineController> logger)
-        {
-            this.logger = logger;
         }
 
         public IActionResult Error()
@@ -962,17 +1194,17 @@ namespace CO_VM.Controllers
         public IActionResult History()
         {
             var UserId = HttpContext.Session.GetString("UserId");
-            var user = ob.Users.FirstOrDefault(u => u.UserId == Convert.ToInt32(UserId));
+            var user = vm.Users.FirstOrDefault(u => u.UserId == Convert.ToInt32(UserId));
             if (user == null)
             {
                 return NotFound("User not found.");
             }
-            var userhistory = (from t in ob.Bookings
+            var userhistory = (from t in vm.Bookings
                                where t.UserId == user.UserId && t.FamilyId == null
                                select t).ToList();
             ViewBag.UserHistory = userhistory;
 
-            var familyhistory = (from t in ob.Families
+            var familyhistory = (from t in vm.Families
                                  where t.UserId == user.UserId && t.FamilyId != null
                                  select t).ToList();
             ViewBag.FamilyHistory = familyhistory;

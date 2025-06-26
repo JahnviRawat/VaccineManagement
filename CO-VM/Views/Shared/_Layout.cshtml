@@ -50,25 +50,28 @@
                         <a href="@Url.Action("Vaccines", "Vaccine")" class="btn btn-outline-light me-4">Vaccines</a>
 
                     </li>
+                    @{ var userId = Context.Session.GetString("UserId");
+                    }
+                    @if (string.IsNullOrEmpty(userId))
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Login", "Vaccine")" role="button" class="btn btn-outline-light me-4">Login</a>
+                            @* <ul class="dropdown-menu"> *@
+                            @*     <li> *@
+                            @*         <a href="@Url.Action("Login","Vaccine")" class="dropdown-item">User Login</a> *@
+                            @*     </li> *@
+                            @*     <li> *@
+                            @*         <a href="@Url.Action("AdminLogin","Admin")" class="dropdown-item">Admin Login</a> *@
+                            @*     </li> *@
+                            @* </ul> *@
+                        </li>
 
-                    <li class="nav-item dropdown">
-                        <a href="@Url.Action("Login", "Vaccine")" role="button" class="btn btn-outline-light dropdown-toggle me-4" data-bs-toggle="dropdown">Login</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="@Url.Action("Login","Vaccine")" class="dropdown-item">User Login</a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("AdminLogin","Admin")" class="dropdown-item">Admin Login</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item">
 
-                    <li class="nav-item">
+                            <a href="@Url.Action("Register", "Vaccine")" class="btn btn-outline-light me-4">Register</a>
 
-                        <a href="@Url.Action("Register", "Vaccine")" class="btn btn-outline-light me-4">Register</a>
-
-                    </li>
-
+                        </li>
+                    }
                 </ul>
 
             </div>

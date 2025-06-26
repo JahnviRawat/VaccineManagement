@@ -449,6 +449,7 @@
                                                 <p class="card-text"><strong>Date of Birth:</strong> @f.Dob.ToShortDateString()</p>
                                                 <p class="card-text"><strong>Gender:</strong> @f.Gender</p>
                                                 <p class="card-text"><strong>Aadhaar No:</strong> @f.AadhaarNo</p>
+                                                <p class="card-text"><strong>Relation: </strong> @f.Relation?.RelationType</p>
                                                 <div class="d-flex gap-2 mt-2">
                                                     <a asp-controller="Vaccine" asp-action="BookSlot" asp-route-familyId="@f.FamilyId" class="btn btn-success btn-sm flex-fill"><i class="bi bi-calendar-plus"></i> Book Slot</a>
                                                     <form asp-controller="Vaccine" asp-action="DeleteFamily" asp-route-id="@f.FamilyId" method="post" style="display:inline;">
